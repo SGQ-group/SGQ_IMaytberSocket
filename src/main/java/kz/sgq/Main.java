@@ -1,6 +1,7 @@
 package kz.sgq;
 
 import kz.sgq.jdbc.JDBCPOST;
+import kz.sgq.jdbc.JDBCPUT;
 
 import static spark.Spark.*;
 
@@ -11,6 +12,8 @@ public class Main {
 
         post("/user", (request, response) -> new JDBCPOST().createUser(request));
         post("/friend", (request, response) -> new JDBCPOST().createFriends(request));
+
+        put("/nick", (request, response) -> new JDBCPUT().putNick(request));
     }
 
     static int getHerokuAssignedPort() {
