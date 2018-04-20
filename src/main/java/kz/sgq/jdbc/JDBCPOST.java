@@ -43,7 +43,7 @@ public class JDBCPOST {
             while (resultSet.next()) {
                 check = true;
             }
-            if (!check){
+            if (!check) {
                 if (request.queryParams("avatar").length() >= LENGTH_AVATAR &&
                         request.queryParams("nick").length() >= LENGTH_NICK &&
                         request.queryParams("login").length() >= LENGTH_LOGIN &&
@@ -80,5 +80,42 @@ public class JDBCPOST {
             }
         }
         return reply;
+    }
+
+    public String createFriends(Request request) {
+        String reply = null;
+        if (request.queryParams("iduser").length() >= LENGTH_IDUSER &&
+                request.queryParams("idfriend").length() >= LENGTH_IDUSER) {
+            try {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.iduser=" +
+                        request.queryParams("iduser_2"));
+                while (resultSet.next()) {
+                    statement.execute("INSERT INTO friends (iduser_1,iduser_2) VALUES (" +
+                            request.queryParams("iduser_1") + ", " +
+                            request.queryParams("iduser_2") + ")");
+                    resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
+                            request.queryParams("iduser_1") + " AND friends.iduser_2=" +
+                            request.queryParams("iduser_2"));
+                    while (resultSet.next()) {
+                        HashMap<String, String> replyMap = new HashMap<>();
+                        replyMap.put("iduser_1", resultSet.getString("iduser_1"));
+                        replyMap.put("iduser_2", resultSet.getString("iduser_2"));
+                        replyMap.put("idfriends", resultSet.getString("idfriends"));
+                        reply = new Gson().toJson(replyMap);
+                    }
+                }
+            } catch (Exception e) {
+                reply = null;
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return reply;
+        } else {
+            return reply;
+        }
     }
 }
