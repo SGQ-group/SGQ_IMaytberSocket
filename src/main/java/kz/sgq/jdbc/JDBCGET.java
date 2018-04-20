@@ -28,7 +28,7 @@ public class JDBCGET {
     }
 
     public String printFriends(Request request) {
-        String reply;
+        String reply = null;
         try {
             if (Integer.parseInt(request.queryParams("iduser_1")) > 0) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
