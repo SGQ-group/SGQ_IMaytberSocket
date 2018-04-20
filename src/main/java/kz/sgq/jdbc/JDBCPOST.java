@@ -155,7 +155,6 @@ public class JDBCPOST {
                             request.queryParams("iduser_2") + " AND chats.iduser_2=" +
                             request.queryParams("iduser_1") + ")");
                     while (resultSet.next()) {
-                        reply = "002";
                         HashMap<String, String> replyMap = new HashMap<>();
                         String content = new FS_RC4(key, request.queryParams("content")).start();
                         statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
@@ -167,13 +166,16 @@ public class JDBCPOST {
                         replyMap.put("idchats", resultSet.getString("idchats"));
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
+                        reply = "004";
 //                        if (replyMap.size() == 4) {
                             resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                     request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
+                        reply = "005";
                             while (resultSet.next()) {
                                 replyMap.put("idmessages", resultSet.getString("idmessages"));
                                 reply = new Gson().toJson(replyMap);
                             }
+                        reply = "006";
 //                        } else {
 //                            reply = null;
 //                        }
@@ -189,7 +191,7 @@ public class JDBCPOST {
                         statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
                                 resultSet.getString("idchats") + ", " +
                                 request.queryParams("iduser_2") + ", '" +
-                                request.queryParams("content") + "'");
+                                request.queryParams("content") + "')");
                         replyMap.put("idchats", resultSet.getString("idchats"));
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", request.queryParams("content"));
