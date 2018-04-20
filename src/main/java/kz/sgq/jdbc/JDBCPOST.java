@@ -154,14 +154,16 @@ public class JDBCPOST {
                             request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
                             request.queryParams("iduser_2") + " AND chats.iduser_2=" +
                             request.queryParams("iduser_1") + ")");
-
+                        reply = "001";
                     while (resultSet.next()) {
+                        reply = "002";
                         HashMap<String, String> replyMap = new HashMap<>();
                         String content = new FS_RC4(key, request.queryParams("content")).start();
                         statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
                                 resultSet.getString("idchats") + ", " +
                                 request.queryParams("iduser_2") + ", '" +
                                 content + "'");
+                        reply = "003";
                         replyMap.put("key", key);
                         replyMap.put("idchats", resultSet.getString("idchats"));
                         replyMap.put("iduser", request.queryParams("iduser_2"));
