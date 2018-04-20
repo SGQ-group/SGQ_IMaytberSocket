@@ -41,7 +41,8 @@ public class JDBCGET {
                     replyMap.put("iduser_2", resultSet.getString("iduser_2"));
                     replyList.add(replyMap);
                 }
-                reply = new Gson().toJson(replyList);
+                if (replyList.size() != 0)
+                    reply = new Gson().toJson(replyList);
             } else {
                 reply = null;
             }
