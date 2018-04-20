@@ -13,6 +13,7 @@ public class Main {
 
         post("/user", (request, response) -> new JDBCPOST().createUser(request));
         post("/friend", (request, response) -> new JDBCPOST().createFriends(request));
+        post("/message", (request, response) -> new JDBCPOST().createMS(request));
 
         put("/nick", (request, response) -> new JDBCPUT().putNick(request));
         put("/avatar", (request, response) -> new JDBCPUT().putAvatar(request));

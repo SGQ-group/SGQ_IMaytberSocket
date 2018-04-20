@@ -1,6 +1,8 @@
 package kz.sgq.jdbc;
 
 import com.google.gson.Gson;
+import kz.sgq.FS_RC4;
+import kz.sgq.KeyGen;
 import spark.Request;
 
 import java.net.URI;
@@ -124,5 +126,97 @@ public class JDBCPOST {
             }
         }
         return reply;
+    }
+
+    public String createMS(Request request) {
+        String reply = null;
+        boolean check = true;
+        if (request.queryParams("iduser_1").length() >= LENGTH_IDUSER &&
+                request.queryParams("iduser_2").length() >= LENGTH_IDUSER &&
+                request.queryParams("content").length() >= LENGTH_CONTENT) {
+            try {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
+                        request.queryParams("iduser_1") + " AND chats.iduser_2=" +
+                        request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
+                        request.queryParams("iduser_2") + " AND chats.iduser_2=" +
+                        request.queryParams("iduser_1") + ")");
+                while (resultSet.next())
+                    check = false;
+                if (check) {
+                    String key = new KeyGen().generate(20);
+                    statement.execute("INSERT INTO chats (iduser_1, iduser_2, chats.key) VALUES (" +
+                            request.queryParams("iduser_1") + ", " +
+                            request.queryParams("iduser_2") + ", '" +
+                            key + "')");
+
+                    resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
+                            request.queryParams("iduser_1") + " AND chats.iduser_2=" +
+                            request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
+                            request.queryParams("iduser_2") + " AND chats.iduser_2=" +
+                            request.queryParams("iduser_1") + ")");
+
+                    while (resultSet.next()) {
+                        HashMap<String, String> replyMap = new HashMap<>();
+                        String content = new FS_RC4(key, request.queryParams("content")).start();
+                        statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
+                                resultSet.getString("idchats") + ", " +
+                                request.queryParams("iduser_2") + ", '" +
+                                content + "'");
+                        replyMap.put("key", key);
+                        replyMap.put("idchats", resultSet.getString("idchats"));
+                        replyMap.put("iduser", request.queryParams("iduser_2"));
+                        replyMap.put("content", content);
+                        if (replyMap.size() == 4) {
+                            resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
+                                    request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
+                            while (resultSet.next()) {
+                                replyMap.put("idmessages", resultSet.getString("idmessages"));
+                                reply = new Gson().toJson(replyMap);
+                            }
+                        } else {
+                            reply = null;
+                        }
+                    }
+                } else {
+                    resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
+                            request.queryParams("iduser_1") + " AND chats.iduser_2=" +
+                            request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
+                            request.queryParams("iduser_2") + " AND chats.iduser_2=" +
+                            request.queryParams("iduser_1") + ")");
+                    while (resultSet.next()) {
+                        HashMap<String, String> replyMap = new HashMap<>();
+                        statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
+                                resultSet.getString("idchats") + ", " +
+                                request.queryParams("iduser_2") + ", '" +
+                                request.queryParams("content") + "'");
+                        replyMap.put("idchats", resultSet.getString("idchats"));
+                        replyMap.put("iduser", request.queryParams("iduser_2"));
+                        replyMap.put("content", request.queryParams("content"));
+                        if (replyMap.size() == 3) {
+                            resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
+                                    request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
+                            while (resultSet.next()) {
+                                replyMap.put("idmessages", resultSet.getString("idmessages"));
+
+                                reply = new Gson().toJson(replyMap);
+                            }
+                        } else {
+                            reply = null;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                reply = null;
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return reply;
+        } else {
+            return reply;
+        }
     }
 }
