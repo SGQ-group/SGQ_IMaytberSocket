@@ -48,4 +48,31 @@ public class JDBCPUT {
             return "200 OK";
         return null;
     }
+
+    public String putAvatar(Request request) {
+        boolean check = false;
+        try {
+            if (request.queryParams("idusers") != null &&
+                    request.queryParams("avatar") != null){
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+                        request.queryParams("idusers"));
+                while (resultSet.next()) {
+                    statement.execute("UPDATE users SET avatar='" +
+                            request.queryParams("avatar") + "' where idusers=" +
+                            request.queryParams("idusers"));
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (check)
+            return "200 OK";
+        return null;
+    }
 }
