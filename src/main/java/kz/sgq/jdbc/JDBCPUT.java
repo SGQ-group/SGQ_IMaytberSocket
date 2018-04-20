@@ -36,7 +36,7 @@ public class JDBCPUT {
                 }
             }
         } catch (Exception e) {
-            check = false;
+//            check = false;
         } finally {
             try {
                 connection.close();
