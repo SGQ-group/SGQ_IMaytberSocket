@@ -3,8 +3,13 @@ package kz.sgq.jdbc;
 import com.google.gson.Gson;
 import kz.sgq.FS_RC4;
 import kz.sgq.KeyGen;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import spark.Request;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
@@ -19,6 +24,11 @@ public class JDBCPOST {
     private final int LENGTH_PASSWORD = 4;
     private final int LENGTH_IDUSER = 1;
     private final int LENGTH_CONTENT = 1;
+
+    public final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+    private final String key = "key=AAAAkza4aqc:APA91bGTvj2rKseIgLrLAcfo1_PmHj3Hk-ZwTM2FCh5qy1ROiP3Uu14efNgUf-Zhr1eOTex2poMNWdxmcWo8RT9be6ermMHDZNmRbkqNF_359wTrq7ovrk4MueMeHYoe-Qi8ZUqqLz1k";
+    private final String URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
     private URI dbUri = new URI(System.getenv("JAWSDB_URL"));
     private final String url = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
@@ -131,6 +141,8 @@ public class JDBCPOST {
     public String createMS(Request request) {
         String reply = null;
         boolean check = true;
+        String token = null;
+        String nick = null;
         if (request.queryParams("iduser_1").length() >= LENGTH_IDUSER &&
                 request.queryParams("iduser_2").length() >= LENGTH_IDUSER &&
                 request.queryParams("content").length() >= LENGTH_CONTENT) {
@@ -172,6 +184,20 @@ public class JDBCPOST {
                             replyMap.put("idmessages", resultSet.getString("idmessages"));
                             reply = new Gson().toJson(replyMap);
                         }
+
+                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+                                request.queryParams("iduser_2"));
+                        while (resultSet.next()) {
+                            token = resultSet.getString("token");
+                        }
+
+                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+                                request.queryParams("iduser_1"));
+                        while (resultSet.next()) {
+                            nick = resultSet.getString("nick");
+                        }
+                        if (nick != null && token != null)
+                            postFCM(nick, content, token);
                     }
                 } else {
                     resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
@@ -195,6 +221,20 @@ public class JDBCPOST {
                             replyMap.put("idmessages", resultSet.getString("idmessages"));
                             reply = new Gson().toJson(replyMap);
                         }
+
+                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+                                request.queryParams("iduser_2"));
+                        while (resultSet.next()) {
+                            token = resultSet.getString("token");
+                        }
+
+                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+                                request.queryParams("iduser_1"));
+                        while (resultSet.next()) {
+                            nick = resultSet.getString("nick");
+                        }
+                        if (nick != null && token != null)
+                            postFCM(nick, request.queryParams("content"), token);
                     }
                 }
             } catch (Exception e) {
@@ -209,5 +249,23 @@ public class JDBCPOST {
         } else {
             return reply;
         }
+    }
+
+    private void postFCM(String title, String body, String token) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        String json = "{" +
+                "  \"to\": \" " + token + "\", " +
+                "  \"notification\": {" +
+                "    \"title\":\"" + title + "\"," +
+                "    \"body\":\"" + body + "\"" +
+                "  }" +
+                "}";
+        RequestBody requestBody = RequestBody.create(JSON, json);
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .header("Authorization", key)
+                .url(url)
+                .post(requestBody)
+                .build();
+        client.newCall(request).execute();
     }
 }
