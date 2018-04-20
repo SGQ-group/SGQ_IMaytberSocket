@@ -87,7 +87,7 @@ public class JDBCPOST {
         if (request.queryParams("iduser_1").length() >= LENGTH_IDUSER &&
                 request.queryParams("iduser_2").length() >= LENGTH_IDUSER) {
             try {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.iduser=" +
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
                         request.queryParams("iduser_2"));
                 while (resultSet.next()) {
                     statement.execute("INSERT INTO friends (iduser_1,iduser_2) VALUES (" +
