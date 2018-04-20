@@ -45,7 +45,7 @@ public class JDBCPUT {
             }
         }
         if (check)
-            return null;
+            return "200 OK";
         return null;
     }
 }
