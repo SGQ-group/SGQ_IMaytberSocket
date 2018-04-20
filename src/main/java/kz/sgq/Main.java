@@ -14,6 +14,7 @@ public class Main {
         post("/friend", (request, response) -> new JDBCPOST().createFriends(request));
 
         put("/nick", (request, response) -> new JDBCPUT().putNick(request));
+        put("/avatar", (request, response) -> new JDBCPUT().putAvatar(request));
     }
 
     static int getHerokuAssignedPort() {
