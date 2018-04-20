@@ -1,11 +1,15 @@
 package kz.sgq;
 
+import kz.sgq.jdbc.JDBCPOST;
+
 import static spark.Spark.*;
 
 public class Main {
     public static void main(String[] args){
         port(getHerokuAssignedPort());
         get("/", (request, response) -> "Server status: Online");
+
+        post("/user", (request, response) -> new JDBCPOST().createUser(request));
     }
 
     static int getHerokuAssignedPort() {
