@@ -254,7 +254,7 @@ public class JDBCPOST {
     private void postFCM(String title, String body, String token) throws IOException {
         OkHttpClient client = new OkHttpClient();
         String json = "{" +
-                "  \"to\": \" " + token + "\", " +
+                "  \"to\": \"" + token + "\", " +
                 "  \"notification\": {" +
                 "    \"title\":\"" + title + "\"," +
                 "    \"body\":\"" + body + "\"" +
