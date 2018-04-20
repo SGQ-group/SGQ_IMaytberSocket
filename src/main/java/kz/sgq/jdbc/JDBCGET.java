@@ -82,6 +82,34 @@ public class JDBCGET {
         return reply;
     }
 
+    public String printChats(Request request) {
+        String reply = null;
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE iduser_1=" +
+                    request.queryParams("iduser") + " OR iduser_2=" +
+                    request.queryParams("iduser"));
+            ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
+            while (resultSet.next()) {
+                HashMap<String, String> replyMap = new HashMap<>();
+                replyMap.put("idchats", resultSet.getString("idchats"));
+                replyMap.put("iduser_1", resultSet.getString("iduser_1"));
+                replyMap.put("iduser_2", resultSet.getString("iduser_2"));
+                replyMap.put("key", resultSet.getString("key"));
+                replyList.add(replyMap);
+            }
+            reply = new Gson().toJson(replyList);
+        } catch (Exception e) {
+            reply = null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return reply;
+    }
+
     public String printLogin(Request request) {
         String reply = null;
         try {

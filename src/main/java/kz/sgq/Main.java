@@ -21,6 +21,7 @@ public class Main {
         get("/friend", (request, response) -> new JDBCGET().printFriends(request));
         get("/profile", (request, response) -> new JDBCGET().printProfile(request));
         get("/login", (request, response) -> new JDBCGET().printLogin(request));
+        get("/chats", (request, response) -> new JDBCGET().printChats(request));
     }
 
     static int getHerokuAssignedPort() {
