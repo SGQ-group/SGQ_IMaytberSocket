@@ -84,8 +84,8 @@ public class JDBCPOST {
 
     public String createFriends(Request request) {
         String reply = null;
-        if (request.queryParams("iduser").length() >= LENGTH_IDUSER &&
-                request.queryParams("idfriend").length() >= LENGTH_IDUSER) {
+        if (request.queryParams("iduser_1").length() >= LENGTH_IDUSER &&
+                request.queryParams("iduser_2").length() >= LENGTH_IDUSER) {
             try {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.iduser=" +
                         request.queryParams("iduser_2"));
