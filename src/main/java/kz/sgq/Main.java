@@ -17,6 +17,7 @@ public class Main {
 
         put("/nick", (request, response) -> new JDBCPUT().putNick(request));
         put("/avatar", (request, response) -> new JDBCPUT().putAvatar(request));
+        put("/token", (request, response) -> new JDBCPUT().putToken(request));
 
         get("/friend", (request, response) -> new JDBCGET().printFriends(request));
         get("/profile", (request, response) -> new JDBCGET().printProfile(request));

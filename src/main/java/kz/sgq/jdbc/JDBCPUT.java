@@ -49,6 +49,34 @@ public class JDBCPUT {
         return null;
     }
 
+    public String putToken(Request request) {
+        boolean check = false;
+        try {
+            if (request.queryParams("idusers") != null &&
+                    request.queryParams("token") != null){
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+                        request.queryParams("idusers"));
+                while (resultSet.next()) {
+                    statement.execute("UPDATE users SET token='" +
+                            request.queryParams("token") + "' where idusers=" +
+                            request.queryParams("idusers"));
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+//            check = false;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (check)
+            return "200 OK";
+        return null;
+    }
+
     public String putAvatar(Request request) {
         boolean check = false;
         try {
