@@ -1,5 +1,6 @@
 package kz.sgq;
 
+import kz.sgq.jdbc.JDBCGET;
 import kz.sgq.jdbc.JDBCPOST;
 import kz.sgq.jdbc.JDBCPUT;
 
@@ -15,6 +16,10 @@ public class Main {
 
         put("/nick", (request, response) -> new JDBCPUT().putNick(request));
         put("/avatar", (request, response) -> new JDBCPUT().putAvatar(request));
+
+        get("/friend", (request, response) -> new JDBCGET().printFriends(request));
+        get("/profile", (request, response) -> new JDBCGET().printProfile(request));
+        get("/login", (request, response) -> new JDBCGET().printLogin(request));
     }
 
     static int getHerokuAssignedPort() {
