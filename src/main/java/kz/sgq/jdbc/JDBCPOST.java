@@ -162,27 +162,16 @@ public class JDBCPOST {
                                 idchats + ", " +
                                 request.queryParams("iduser_2") + ", '" +
                                 content + "')");
-                        reply = "003";
                         replyMap.put("key", key);
-                        reply = "003 2";
                         replyMap.put("idchats", idchats);
-                        reply = "003 3";
                         replyMap.put("iduser", request.queryParams("iduser_2"));
-                        reply = "003 4";
                         replyMap.put("content", content);
-                        reply = "004";
-//                        if (replyMap.size() == 4) {
                         resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                 request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
-                        reply = "005";
                         while (resultSet.next()) {
                             replyMap.put("idmessages", resultSet.getString("idmessages"));
                             reply = new Gson().toJson(replyMap);
                         }
-                        reply = "006";
-//                        } else {
-//                            reply = null;
-//                        }
                     }
                 } else {
                     resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
@@ -192,24 +181,20 @@ public class JDBCPOST {
                             request.queryParams("iduser_1") + ")");
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
+                        String idchats = resultSet.getString("idchats");
                         statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
-                                resultSet.getString("idchats") + ", " +
+                                idchats + ", " +
                                 request.queryParams("iduser_2") + ", '" +
                                 request.queryParams("content") + "')");
-                        replyMap.put("idchats", resultSet.getString("idchats"));
+                        replyMap.put("idchats", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", request.queryParams("content"));
-//                        if (replyMap.size() == 3) {
                         resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                 request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                         while (resultSet.next()) {
                             replyMap.put("idmessages", resultSet.getString("idmessages"));
-
                             reply = new Gson().toJson(replyMap);
                         }
-//                        } else {
-//                            reply = null;
-//                        }
                     }
                 }
             } catch (Exception e) {
