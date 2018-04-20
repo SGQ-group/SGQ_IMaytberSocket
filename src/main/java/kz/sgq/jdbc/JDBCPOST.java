@@ -85,11 +85,11 @@ public class JDBCPOST {
     public String createFriends(Request request) {
         String reply = null;
         boolean check = false;
-        if (request.queryParams("iduser_1").length() >= LENGTH_IDUSER &&
-                request.queryParams("iduser_2").length() >= LENGTH_IDUSER) {
-            try {
+        try {
+            if (Integer.parseInt(request.queryParams("iduser_1")) >= LENGTH_IDUSER &&
+                    Integer.parseInt(request.queryParams("iduser_2")) >= LENGTH_IDUSER) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
-                        request.queryParams("iduser_1") + " AND friends.iduser_2="+
+                        request.queryParams("iduser_1") + " AND friends.iduser_2=" +
                         request.queryParams("iduser_2"));
                 while (resultSet.next()) {
                     check = true;
@@ -113,18 +113,16 @@ public class JDBCPOST {
                         }
                     }
                 }
-            } catch (Exception e) {
-                reply = null;
-            } finally {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
-            return reply;
-        } else {
-            return reply;
+        } catch (Exception e) {
+            reply = null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return reply;
     }
 }
