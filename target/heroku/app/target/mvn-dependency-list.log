@@ -1,0 +1,24 @@
+
+The following files have been resolved:
+   org.eclipse.jetty:jetty-client:jar:9.4.6.v20170531:compile
+   mysql:mysql-connector-java:jar:5.1.39:compile
+   com.squareup.okhttp3:okhttp:jar:3.10.0:compile
+   org.eclipse.jetty:jetty-http:jar:9.4.6.v20170531:compile
+   com.squareup.okio:okio:jar:1.14.0:compile
+   com.sparkjava:spark-core:jar:2.7.1:compile
+   javax.servlet:javax.servlet-api:jar:3.1.0:compile
+   org.eclipse.jetty.websocket:websocket-client:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty:jetty-util:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty:jetty-io:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty.websocket:websocket-server:jar:9.4.6.v20170531:compile
+   org.slf4j:slf4j-api:jar:1.7.13:compile
+   org.eclipse.jetty:jetty-webapp:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty:jetty-security:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty:jetty-server:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty.websocket:websocket-servlet:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty:jetty-servlet:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty.websocket:websocket-common:jar:9.4.6.v20170531:compile
+   com.google.code.gson:gson:jar:2.8.2:compile
+   org.eclipse.jetty:jetty-xml:jar:9.4.6.v20170531:compile
+   org.eclipse.jetty.websocket:websocket-api:jar:9.4.6.v20170531:compile
+
