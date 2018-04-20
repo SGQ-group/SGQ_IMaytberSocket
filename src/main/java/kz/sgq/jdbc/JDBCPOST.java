@@ -163,8 +163,11 @@ public class JDBCPOST {
                                 content + "')");
                         reply = "003";
                         replyMap.put("key", key);
+                        reply = "003 2";
                         replyMap.put("idchats", resultSet.getString("idchats"));
+                        reply = "003 3";
                         replyMap.put("iduser", request.queryParams("iduser_2"));
+                        reply = "003 4";
                         replyMap.put("content", content);
                         reply = "004";
 //                        if (replyMap.size() == 4) {
