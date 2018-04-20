@@ -84,24 +84,33 @@ public class JDBCPOST {
 
     public String createFriends(Request request) {
         String reply = null;
+        boolean check = false;
         if (request.queryParams("iduser_1").length() >= LENGTH_IDUSER &&
                 request.queryParams("iduser_2").length() >= LENGTH_IDUSER) {
             try {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
+                        request.queryParams("iduser_1") + " AND friends.iduser_2="+
                         request.queryParams("iduser_2"));
                 while (resultSet.next()) {
-                    statement.execute("INSERT INTO friends (iduser_1,iduser_2) VALUES (" +
-                            request.queryParams("iduser_1") + ", " +
-                            request.queryParams("iduser_2") + ")");
-                    resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
-                            request.queryParams("iduser_1") + " AND friends.iduser_2=" +
+                    check = true;
+                }
+                if (!check) {
+                    resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
                             request.queryParams("iduser_2"));
                     while (resultSet.next()) {
-                        HashMap<String, String> replyMap = new HashMap<>();
-                        replyMap.put("iduser_1", resultSet.getString("iduser_1"));
-                        replyMap.put("iduser_2", resultSet.getString("iduser_2"));
-                        replyMap.put("idfriends", resultSet.getString("idfriends"));
-                        reply = new Gson().toJson(replyMap);
+                        statement.execute("INSERT INTO friends (iduser_1,iduser_2) VALUES (" +
+                                request.queryParams("iduser_1") + ", " +
+                                request.queryParams("iduser_2") + ")");
+                        resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
+                                request.queryParams("iduser_1") + " AND friends.iduser_2=" +
+                                request.queryParams("iduser_2"));
+                        while (resultSet.next()) {
+                            HashMap<String, String> replyMap = new HashMap<>();
+                            replyMap.put("iduser_1", resultSet.getString("iduser_1"));
+                            replyMap.put("iduser_2", resultSet.getString("iduser_2"));
+                            replyMap.put("idfriends", resultSet.getString("idfriends"));
+                            reply = new Gson().toJson(replyMap);
+                        }
                     }
                 }
             } catch (Exception e) {
