@@ -1,4 +1,5 @@
 package kz.sgq.jdbc;
+
 import com.google.gson.Gson;
 import spark.Request;
 
@@ -8,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 public class JDBCGET {
     private URI dbUri = new URI(System.getenv("JAWSDB_URL"));
     private final String url = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
@@ -28,17 +30,21 @@ public class JDBCGET {
     public String printFriends(Request request) {
         String reply;
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
-                    request.queryParams("iduser_1"));
-            ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
-            while (resultSet.next()) {
-                HashMap<String, String> replyMap = new HashMap<>();
-                replyMap.put("idfriends", resultSet.getString("idfriends"));
-                replyMap.put("iduser_1", resultSet.getString("iduser_1"));
-                replyMap.put("iduser_2", resultSet.getString("iduser_2"));
-                replyList.add(replyMap);
+            if (Integer.parseInt(request.queryParams("iduser_1")) > 0) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
+                        request.queryParams("iduser_1"));
+                ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
+                while (resultSet.next()) {
+                    HashMap<String, String> replyMap = new HashMap<>();
+                    replyMap.put("idfriends", resultSet.getString("idfriends"));
+                    replyMap.put("iduser_1", resultSet.getString("iduser_1"));
+                    replyMap.put("iduser_2", resultSet.getString("iduser_2"));
+                    replyList.add(replyMap);
+                }
+                reply = new Gson().toJson(replyList);
+            } else {
+                reply = null;
             }
-            reply = new Gson().toJson(replyList);
         } catch (Exception e) {
             reply = null;
         } finally {
@@ -50,6 +56,7 @@ public class JDBCGET {
         }
         return reply;
     }
+
     public String printProfile(Request request) {
         String reply = null;
         try {
