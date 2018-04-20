@@ -263,7 +263,7 @@ public class JDBCPOST {
         RequestBody requestBody = RequestBody.create(JSON, json);
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .header("Authorization", key)
-                .url(url)
+                .url(URL_FCM)
                 .post(requestBody)
                 .build();
         client.newCall(request).execute();
