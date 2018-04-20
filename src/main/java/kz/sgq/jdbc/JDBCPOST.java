@@ -166,16 +166,16 @@ public class JDBCPOST {
                         replyMap.put("idchats", resultSet.getString("idchats"));
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
-                        if (replyMap.size() == 4) {
+//                        if (replyMap.size() == 4) {
                             resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                     request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                             while (resultSet.next()) {
                                 replyMap.put("idmessages", resultSet.getString("idmessages"));
                                 reply = new Gson().toJson(replyMap);
                             }
-                        } else {
-                            reply = null;
-                        }
+//                        } else {
+//                            reply = null;
+//                        }
                     }
                 } else {
                     resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
@@ -192,7 +192,7 @@ public class JDBCPOST {
                         replyMap.put("idchats", resultSet.getString("idchats"));
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", request.queryParams("content"));
-                        if (replyMap.size() == 3) {
+//                        if (replyMap.size() == 3) {
                             resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                     request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                             while (resultSet.next()) {
@@ -200,13 +200,12 @@ public class JDBCPOST {
 
                                 reply = new Gson().toJson(replyMap);
                             }
-                        } else {
-                            reply = null;
-                        }
+//                        } else {
+//                            reply = null;
+//                        }
                     }
                 }
             } catch (Exception e) {
-                reply = null;
             } finally {
                 try {
                     connection.close();
