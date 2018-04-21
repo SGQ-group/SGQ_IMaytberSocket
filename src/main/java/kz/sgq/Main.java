@@ -83,10 +83,10 @@ public class Main {
         get("/chats", (request, response) -> new JDBCGET().printChats(request));
 
         /**
-         * https://example.com/massage ?
+         * https://example.com/message ?
          * & iduser
          */
-        get("/massage", (request, response) -> new JDBCGET().printProfile(request));
+        get("/message", (request, response) -> new JDBCGET().printMessage(request));
     }
 
     static int getHerokuAssignedPort() {
