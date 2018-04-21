@@ -72,7 +72,7 @@ public class JDBCPOST {
                             request.queryParams("password") + "'");
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
-                        replyMap.put("idusers", resultSet.getString("idusers"));
+                        replyMap.put("iduser", resultSet.getString("idusers"));
                         replyMap.put("avatar", resultSet.getString("avatar"));
                         replyMap.put("nick", resultSet.getString("nick"));
                         replyMap.put("login", resultSet.getString("login"));
@@ -120,7 +120,7 @@ public class JDBCPOST {
                             HashMap<String, String> replyMap = new HashMap<>();
                             replyMap.put("iduser_1", resultSet.getString("iduser_1"));
                             replyMap.put("iduser_2", resultSet.getString("iduser_2"));
-                            replyMap.put("idfriends", resultSet.getString("idfriends"));
+                            replyMap.put("idfriend", resultSet.getString("idfriends"));
                             reply = new Gson().toJson(replyMap);
                         }
                     }
@@ -175,13 +175,13 @@ public class JDBCPOST {
                                 request.queryParams("iduser_2") + ", '" +
                                 content + "')");
                         replyMap.put("key", key);
-                        replyMap.put("idchats", idchats);
+                        replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
                         resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                 request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                         while (resultSet.next()) {
-                            replyMap.put("idmessages", resultSet.getString("idmessages"));
+                            replyMap.put("idmessage", resultSet.getString("idmessages"));
                             reply = new Gson().toJson(replyMap);
                         }
 
@@ -212,13 +212,13 @@ public class JDBCPOST {
                                 idchats + ", " +
                                 request.queryParams("iduser_2") + ", '" +
                                 request.queryParams("content") + "')");
-                        replyMap.put("idchats", idchats);
+                        replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", request.queryParams("content"));
                         resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                 request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                         while (resultSet.next()) {
-                            replyMap.put("idmessages", resultSet.getString("idmessages"));
+                            replyMap.put("idmessage", resultSet.getString("idmessages"));
                             reply = new Gson().toJson(replyMap);
                         }
 

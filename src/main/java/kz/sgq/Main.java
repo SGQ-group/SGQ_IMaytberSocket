@@ -65,7 +65,7 @@ public class Main {
 
         /**
          * https://example.com/profile ?
-         * & idusers
+         * & iduser
          */
         get("/profile", (request, response) -> new JDBCGET().printProfile(request));
 

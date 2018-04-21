@@ -30,7 +30,7 @@ public class JDBCGET {
     public String printFriends(Request request) {
         String reply = null;
         try {
-            if (Integer.parseInt(request.queryParams("iduser_1")) > 0) {
+            if (Integer.parseInt(request.queryParams("iduser")) > 0) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
                         request.queryParams("iduser"));
                 ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
@@ -62,12 +62,12 @@ public class JDBCGET {
         String reply = null;
         try {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE idusers=" +
-                    request.queryParams("idusers"));
+                    request.queryParams("iduser"));
             while (resultSet.next()) {
                 HashMap<String, String> replyMap = new HashMap<>();
                 replyMap.put("avatar", resultSet.getString("avatar"));
                 replyMap.put("nick", resultSet.getString("nick"));
-                replyMap.put("idusers", resultSet.getString("idusers"));
+                replyMap.put("iduser", resultSet.getString("idusers"));
                 reply = new Gson().toJson(replyMap);
             }
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public class JDBCGET {
             ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
             while (resultSet.next()) {
                 HashMap<String, String> replyMap = new HashMap<>();
-                replyMap.put("idchats", resultSet.getString("idchats"));
+                replyMap.put("idchat", resultSet.getString("idchats"));
                 replyMap.put("iduser_1", resultSet.getString("iduser_1"));
                 replyMap.put("iduser_2", resultSet.getString("iduser_2"));
                 replyMap.put("key", resultSet.getString("key"));
@@ -118,7 +118,7 @@ public class JDBCGET {
                     request.queryParams("password") + "'");
             while (resultSet.next()) {
                 HashMap<String, String> replyMap = new HashMap<>();
-                replyMap.put("idusers", resultSet.getString("idusers"));
+                replyMap.put("iduser", resultSet.getString("idusers"));
                 replyMap.put("avatar", resultSet.getString("avatar"));
                 replyMap.put("nick", resultSet.getString("nick"));
                 replyMap.put("login", resultSet.getString("login"));
@@ -155,8 +155,8 @@ public class JDBCGET {
                         chatList.get(i).get("idchats"));
                 while (resultSet.next()) {
                     HashMap<String, String> replyMap = new HashMap<>();
-                    replyMap.put("idmessages", resultSet.getString("idmessages"));
-                    replyMap.put("idchats", resultSet.getString("idchats"));
+                    replyMap.put("idmessage", resultSet.getString("idmessages"));
+                    replyMap.put("idchat", resultSet.getString("idchats"));
                     replyMap.put("iduser", resultSet.getString("iduser"));
                     replyMap.put("content", resultSet.getString("content"));
                     replyList.add(replyMap);
