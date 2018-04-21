@@ -25,7 +25,7 @@ public class JDBCPOST {
     private final int LENGTH_IDUSER = 1;
     private final int LENGTH_CONTENT = 1;
 
-    public final MediaType JSON
+    private final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
     private final String key = "key=AAAAkza4aqc:APA91bGTvj2rKseIgLrLAcfo1_PmHj3Hk-ZwTM2FCh5qy1ROiP3Uu14efNgUf-Zhr1eOTex2poMNWdxmcWo8RT9be6ermMHDZNmRbkqNF_359wTrq7ovrk4MueMeHYoe-Qi8ZUqqLz1k";
     private final String URL_FCM = "https://fcm.googleapis.com/fcm/send";

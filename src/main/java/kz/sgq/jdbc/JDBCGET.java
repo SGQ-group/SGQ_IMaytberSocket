@@ -32,7 +32,7 @@ public class JDBCGET {
         try {
             if (Integer.parseInt(request.queryParams("iduser_1")) > 0) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
-                        request.queryParams("iduser_1"));
+                        request.queryParams("iduser"));
                 ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
                 while (resultSet.next()) {
                     HashMap<String, String> replyMap = new HashMap<>();
@@ -125,6 +125,45 @@ public class JDBCGET {
                 replyMap.put("password", resultSet.getString("password"));
                 reply = new Gson().toJson(replyMap);
             }
+        } catch (Exception e) {
+            reply = null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return reply;
+    }
+
+    public String printMessage(Request request) {
+        List<HashMap<String, Integer>> chatList = new ArrayList<>();
+        ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
+        String reply;
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE iduser_1=" +
+                    request.queryParams("iduser") + " OR iduser_2=" +
+                    request.queryParams("iduser"));
+            while (resultSet.next()) {
+                HashMap<String, Integer> replyMap = new HashMap<>();
+                replyMap.put("idchats", resultSet.getInt("idchats"));
+                chatList.add(replyMap);
+            }
+            for (int i = 0; i < chatList.size(); i++) {
+                resultSet = statement.executeQuery("SELECT * FROM messages WHERE idchats=" +
+                        chatList.get(i).get("idchats"));
+                while (resultSet.next()) {
+                    HashMap<String, String> replyMap = new HashMap<>();
+                    replyMap.put("idmessages", resultSet.getString("idmessages"));
+                    replyMap.put("idchats", resultSet.getString("idchats"));
+                    replyMap.put("iduser", resultSet.getString("iduser"));
+                    replyMap.put("content", resultSet.getString("content"));
+                    replyList.add(replyMap);
+
+                }
+            }
+            reply = new Gson().toJson(replyList);
         } catch (Exception e) {
             reply = null;
         } finally {

@@ -11,18 +11,82 @@ public class Main {
         port(getHerokuAssignedPort());
         get("/", (request, response) -> "Server status: Online");
 
+        /**
+         * https://example.com/user ?
+         * & avatar
+         * & nick
+         * & login
+         * & password
+         * & token
+         */
         post("/user", (request, response) -> new JDBCPOST().createUser(request));
+
+        /**
+         * https://example.com/friend ?
+         * & iduser_1
+         * & iduser_2
+         */
         post("/friend", (request, response) -> new JDBCPOST().createFriends(request));
+
+        /**
+         * https://example.com/message ?
+         * & iduser_1
+         * & iduser_2
+         * & content
+         */
         post("/message", (request, response) -> new JDBCPOST().createMS(request));
 
+        /**
+         * https://example.com/nick ?
+         * & iduser
+         * & nick
+         */
         put("/nick", (request, response) -> new JDBCPUT().putNick(request));
+
+        /**
+         * https://example.com/avatar ?
+         * & iduser
+         * & avatar
+         */
         put("/avatar", (request, response) -> new JDBCPUT().putAvatar(request));
+
+        /**
+         * https://example.com/token ?
+         * & iduser
+         * & token
+         */
         put("/token", (request, response) -> new JDBCPUT().putToken(request));
 
+        /**
+         * https://example.com/friend ?
+         * & iduser
+         */
         get("/friend", (request, response) -> new JDBCGET().printFriends(request));
+
+        /**
+         * https://example.com/profile ?
+         * & idusers
+         */
         get("/profile", (request, response) -> new JDBCGET().printProfile(request));
+
+        /**
+         * https://example.com/login ?
+         * & login
+         * & password
+         */
         get("/login", (request, response) -> new JDBCGET().printLogin(request));
+
+        /**
+         * https://example.com/chats ?
+         * & iduser
+         */
         get("/chats", (request, response) -> new JDBCGET().printChats(request));
+
+        /**
+         * https://example.com/massage ?
+         * & iduser
+         */
+        get("/massage", (request, response) -> new JDBCGET().printProfile(request));
     }
 
     static int getHerokuAssignedPort() {

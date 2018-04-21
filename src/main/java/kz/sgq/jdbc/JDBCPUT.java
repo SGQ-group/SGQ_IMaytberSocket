@@ -24,14 +24,14 @@ public class JDBCPUT {
     public String putNick(Request request) {
         boolean check = false;
         try {
-            if (request.queryParams("idusers") != null &&
+            if (request.queryParams("iduser") != null &&
                     request.queryParams("nick") != null){
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                        request.queryParams("idusers"));
+                        request.queryParams("iduser"));
                 while (resultSet.next()) {
                     statement.execute("UPDATE users SET nick='" +
                             request.queryParams("nick") + "' where idusers=" +
-                            request.queryParams("idusers"));
+                            request.queryParams("iduser"));
                     check = true;
                 }
             }
@@ -52,14 +52,14 @@ public class JDBCPUT {
     public String putToken(Request request) {
         boolean check = false;
         try {
-            if (request.queryParams("idusers") != null &&
+            if (request.queryParams("iduser") != null &&
                     request.queryParams("token") != null){
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                        request.queryParams("idusers"));
+                        request.queryParams("iduser"));
                 while (resultSet.next()) {
                     statement.execute("UPDATE users SET token='" +
                             request.queryParams("token") + "' where idusers=" +
-                            request.queryParams("idusers"));
+                            request.queryParams("iduser"));
                     check = true;
                 }
             }
@@ -80,14 +80,14 @@ public class JDBCPUT {
     public String putAvatar(Request request) {
         boolean check = false;
         try {
-            if (request.queryParams("idusers") != null &&
+            if (request.queryParams("iduser") != null &&
                     request.queryParams("avatar") != null){
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                        request.queryParams("idusers"));
+                        request.queryParams("iduser"));
                 while (resultSet.next()) {
                     statement.execute("UPDATE users SET avatar='" +
                             request.queryParams("avatar") + "' where idusers=" +
-                            request.queryParams("idusers"));
+                            request.queryParams("iduser"));
                     check = true;
                 }
             }
