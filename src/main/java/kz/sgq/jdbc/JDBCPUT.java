@@ -1,9 +1,11 @@
 package kz.sgq.jdbc;
+
 import spark.Request;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
+
 public class JDBCPUT {
     private URI dbUri = new URI(System.getenv("JAWSDB_URL"));
     private final String url = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
@@ -25,7 +27,7 @@ public class JDBCPUT {
         boolean check = false;
         try {
             if (request.queryParams("iduser") != null &&
-                    request.queryParams("nick") != null){
+                    request.queryParams("nick") != null) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
                         request.queryParams("iduser"));
                 while (resultSet.next()) {
@@ -53,7 +55,7 @@ public class JDBCPUT {
         boolean check = false;
         try {
             if (request.queryParams("iduser") != null &&
-                    request.queryParams("token") != null){
+                    request.queryParams("token") != null) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
                         request.queryParams("iduser"));
                 while (resultSet.next()) {
@@ -81,7 +83,7 @@ public class JDBCPUT {
         boolean check = false;
         try {
             if (request.queryParams("iduser") != null &&
-                    request.queryParams("avatar") != null){
+                    request.queryParams("avatar") != null) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
                         request.queryParams("iduser"));
                 while (resultSet.next()) {
@@ -108,13 +110,13 @@ public class JDBCPUT {
         boolean check = false;
         try {
             if (request.queryParams("login") != null &&
-                    request.queryParams("password") != null){
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login=" +
-                        request.queryParams("login"));
+                    request.queryParams("password") != null) {
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
+                        request.queryParams("login") + "'");
                 while (resultSet.next()) {
                     statement.execute("UPDATE users SET password='" +
-                            request.queryParams("password") + "' where login=" +
-                            request.queryParams("login"));
+                            request.queryParams("password") + "' where login='" +
+                            request.queryParams("login") + "'");
                     check = true;
                 }
             }
