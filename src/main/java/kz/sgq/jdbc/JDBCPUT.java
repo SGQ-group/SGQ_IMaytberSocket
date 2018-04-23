@@ -103,4 +103,31 @@ public class JDBCPUT {
             return "200 OK";
         return null;
     }
+
+    public String putPassword(Request request) {
+        boolean check = false;
+        try {
+            if (request.queryParams("login") != null &&
+                    request.queryParams("password") != null){
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login=" +
+                        request.queryParams("login"));
+                while (resultSet.next()) {
+                    statement.execute("UPDATE users SET password='" +
+                            request.queryParams("password") + "' where login=" +
+                            request.queryParams("login"));
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (check)
+            return "200 OK";
+        return null;
+    }
 }

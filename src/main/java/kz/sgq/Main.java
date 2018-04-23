@@ -51,6 +51,13 @@ public class Main {
         put("/avatar", (request, response) -> new JDBCPUT().putAvatar(request));
 
         /**
+         * https://example.com/password ?
+         * & login
+         * & avatar
+         */
+        put("/password", (request, response) -> new JDBCPUT().putPassword(request));
+
+        /**
          * https://example.com/token ?
          * & iduser
          * & token
