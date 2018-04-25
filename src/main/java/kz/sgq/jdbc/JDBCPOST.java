@@ -155,7 +155,7 @@ public class JDBCPOST {
                 while (resultSet.next())
                     check = false;
                 if (check) {
-                    String key = new KeyGen().generate(20);
+                    String key = new KeyGen().generate(5);
                     statement.execute("INSERT INTO chats (iduser_1, iduser_2, chats.key) VALUES (" +
                             request.queryParams("iduser_1") + ", " +
                             request.queryParams("iduser_2") + ", '" +
