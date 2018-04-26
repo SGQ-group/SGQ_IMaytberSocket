@@ -237,10 +237,10 @@ public class JDBCPOST {
                         while (resultSet.next()) {
                             nick = resultSet.getString("nick");
                         }
-                            postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
-                                    request.queryParams("iduser_2"), replyMap.get("content"),
-                                    request.queryParams("iduser_1"), request.queryParams("iduser_2"),
-                                    key, nick);
+                        postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
+                                request.queryParams("iduser_2"), replyMap.get("content"),
+                                request.queryParams("iduser_1"), request.queryParams("iduser_2"),
+                                key, nick);
                     }
                 }
             } catch (Exception e) {
@@ -260,8 +260,8 @@ public class JDBCPOST {
     private void postFCM(String token, String idmessages, String idchats, String iduser,
                          String content, String iduser_1, String iduser_2, String key, String nick) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        String json = "{" +
-                "  \"to\": \"" + token + "\", " +
+        String json = "{\"message\":{" +
+                "  \"token\": \"" + token + "\", " +
                 "  \"data\": {\"" +
                 "    \"idmessages\":\"" + idmessages + "\"," +
                 "    \"idchats\":\"" + idchats + "\"," +
@@ -272,7 +272,7 @@ public class JDBCPOST {
                 "    \"nick\":\"" + nick + "\"," +
                 "    \"key\":\"" + key + "\"" +
                 "  }" +
-                "}";
+                "}}";
         RequestBody requestBody = RequestBody.create(JSON, json);
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .header("Authorization", keyA)
