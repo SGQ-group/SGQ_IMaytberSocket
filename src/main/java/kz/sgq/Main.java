@@ -9,7 +9,7 @@ import static spark.Spark.*;
 public class Main {
     public static void main(String[] args){
         port(getHerokuAssignedPort());
-        get("/", (request, response) -> "Server status: Online");
+        staticFiles.location("/public");
 
         /**
          * https://example.com/user ?
