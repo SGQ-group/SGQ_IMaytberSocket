@@ -262,7 +262,7 @@ public class JDBCPOST {
         OkHttpClient client = new OkHttpClient();
         String json = "{\"message\":{" +
                 "  \"token\": \"" + token + "\", " +
-                "  \"data\": {\"" +
+                "  \"data\": {" +
                 "    \"idmessages\":\"" + idmessages + "\"," +
                 "    \"idchats\":\"" + idchats + "\"," +
                 "    \"iduser\":\"" + iduser + "\"," +
