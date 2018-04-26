@@ -27,7 +27,7 @@ public class JDBCPOST {
 
     private final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    private final String key = "key=AAAAkza4aqc:APA91bGTvj2rKseIgLrLAcfo1_PmHj3Hk-ZwTM2FCh5qy1ROiP3Uu14efNgUf-Zhr1eOTex2poMNWdxmcWo8RT9be6ermMHDZNmRbkqNF_359wTrq7ovrk4MueMeHYoe-Qi8ZUqqLz1k";
+    private final String keyA = "key=AAAAkza4aqc:APA91bGTvj2rKseIgLrLAcfo1_PmHj3Hk-ZwTM2FCh5qy1ROiP3Uu14efNgUf-Zhr1eOTex2poMNWdxmcWo8RT9be6ermMHDZNmRbkqNF_359wTrq7ovrk4MueMeHYoe-Qi8ZUqqLz1k";
     private final String URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
     private URI dbUri = new URI(System.getenv("JAWSDB_URL"));
@@ -196,8 +196,11 @@ public class JDBCPOST {
                         while (resultSet.next()) {
                             nick = resultSet.getString("nick");
                         }
-                        if (nick != null && token != null)
-                            postFCM(nick, content, token);
+                        if (token != null)
+                            postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
+                                    request.queryParams("iduser_2"), replyMap.get("content"),
+                                    request.queryParams("iduser_1"), request.queryParams("iduser_2"),
+                                    key, nick);
                     }
                 } else {
                     resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
@@ -208,6 +211,7 @@ public class JDBCPOST {
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
                         String idchats = resultSet.getString("idchats");
+                        String key = resultSet.getString("key");
                         statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
                                 idchats + ", " +
                                 request.queryParams("iduser_2") + ", '" +
@@ -233,8 +237,10 @@ public class JDBCPOST {
                         while (resultSet.next()) {
                             nick = resultSet.getString("nick");
                         }
-                        if (nick != null && token != null)
-                            postFCM(nick, request.queryParams("content"), token);
+                            postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
+                                    request.queryParams("iduser_2"), replyMap.get("content"),
+                                    request.queryParams("iduser_1"), request.queryParams("iduser_2"),
+                                    key, nick);
                     }
                 }
             } catch (Exception e) {
@@ -251,18 +257,25 @@ public class JDBCPOST {
         }
     }
 
-    private void postFCM(String title, String body, String token) throws IOException {
+    private void postFCM(String token, String idmessages, String idchats, String iduser,
+                         String content, String iduser_1, String iduser_2, String key, String nick) throws IOException {
         OkHttpClient client = new OkHttpClient();
         String json = "{" +
                 "  \"to\": \"" + token + "\", " +
-                "  \"notification\": {" +
-                "    \"title\":\"" + title + "\"," +
-                "    \"body\":\"" + body + "\"" +
+                "  \"data\": {" +
+                "    \"idmessages\":" + idmessages + "," +
+                "    \"idchats\":" + idchats + "," +
+                "    \"iduser\":" + iduser + "," +
+                "    \"content\":\"" + content + "\"," +
+                "    \"iduser_1\":" + iduser_1 + "," +
+                "    \"iduser_2\":" + iduser_2 + "," +
+                "    \"nick\":" + nick + "," +
+                "    \"key\":\"" + key + "\"" +
                 "  }" +
                 "}";
         RequestBody requestBody = RequestBody.create(JSON, json);
         okhttp3.Request request = new okhttp3.Request.Builder()
-                .header("Authorization", key)
+                .header("Authorization", keyA)
                 .url(URL_FCM)
                 .post(requestBody)
                 .build();
