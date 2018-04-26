@@ -27,7 +27,7 @@ public class JDBCPOST {
 
     private final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    private final String keyA = "key=AAAAkza4aqc:APA91bGTvj2rKseIgLrLAcfo1_PmHj3Hk-ZwTM2FCh5qy1ROiP3Uu14efNgUf-Zhr1eOTex2poMNWdxmcWo8RT9be6ermMHDZNmRbkqNF_359wTrq7ovrk4MueMeHYoe-Qi8ZUqqLz1k";
+    private final String keyA = "key=AAAAwog6t5c:APA91bH_UOXr_cu6cWTdneopBUQDh_rQHRAjHCTo_Oo6JKEzXwua7AcouDaXilxwfaRh19DvtZkVxfLlojDt5tYw_u9S4jwqpMDcurRttBy36SGpBp9YkI5mPqh9JyaSsysfyDS3_okL";
     private final String URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
     private URI dbUri = new URI(System.getenv("JAWSDB_URL"));
@@ -260,8 +260,8 @@ public class JDBCPOST {
     private void postFCM(String token, String idmessages, String idchats, String iduser,
                          String content, String iduser_1, String iduser_2, String key, String nick) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        String json = "{\"message\":{" +
-                "  \"token\": \"" + token + "\", " +
+        String json = "{" +
+                "  \"to\": \"" + token + "\", " +
                 "  \"data\": {" +
                 "    \"idmessages\":\"" + idmessages + "\"," +
                 "    \"idchats\":\"" + idchats + "\"," +
@@ -272,7 +272,7 @@ public class JDBCPOST {
                 "    \"nick\":\"" + nick + "\"," +
                 "    \"key\":\"" + key + "\"" +
                 "  }" +
-                "}}";
+                "}";
         RequestBody requestBody = RequestBody.create(JSON, json);
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .header("Authorization", keyA)
