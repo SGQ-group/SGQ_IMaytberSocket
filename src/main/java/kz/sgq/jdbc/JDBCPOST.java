@@ -1,16 +1,14 @@
 package kz.sgq.jdbc;
 
 import com.google.gson.Gson;
-import kz.sgq.FS_RC4;
-import kz.sgq.KeyGen;
+import kz.sgq.utils.FS_RC4;
+import kz.sgq.utils.KeyGen;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import spark.Request;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
@@ -224,10 +222,6 @@ public class JDBCPOST {
                         preparedStatement.setString(3, content);
                         preparedStatement.executeUpdate();
 
-//                        statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
-//                                idchats + ", " +
-//                                request.queryParams("iduser_2") + ", '" +
-//                                content + "')");
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);

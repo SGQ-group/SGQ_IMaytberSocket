@@ -17,6 +17,7 @@ public class JDBCGET {
     private final String password = dbUri.getUserInfo().split(":")[1];
     private Connection connection;
     private Statement statement;
+    private PreparedStatement preparedStatement;
 
     public JDBCGET() throws URISyntaxException {
         try {
