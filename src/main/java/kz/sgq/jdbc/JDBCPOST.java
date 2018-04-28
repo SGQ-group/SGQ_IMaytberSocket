@@ -10,6 +10,7 @@ import okhttp3.Response;
 import spark.Request;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
@@ -212,13 +213,20 @@ public class JDBCPOST {
                         HashMap<String, String> replyMap = new HashMap<>();
                         String idchats = resultSet.getString("idchats");
                         String key = resultSet.getString("key");
+                        String content;
+                        try {
+                            content = new String(request.queryParams("content").getBytes("UTF8"), "UTF8");
+                        } catch (UnsupportedEncodingException e) {
+                            content = request.queryParams("content");
+                        }
+
                         statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
                                 idchats + ", " +
                                 request.queryParams("iduser_2") + ", '" +
                                 request.queryParams("content") + "')");
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
-                        replyMap.put("content", request.queryParams("content"));
+                        replyMap.put("content", content);
                         resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
                                 request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                         while (resultSet.next()) {
