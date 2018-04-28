@@ -37,10 +37,14 @@ public class JDBCPOST {
     private final String password = dbUri.getUserInfo().split(":")[1];
     private Connection connection;
     private Statement statement;
+    private PreparedStatement preparedStatement;
+
+    private static final String SQL_STATEMENT = "INSERT INTO messages (idchats,iduser,content) VALUES (?, ?, ?)";
 
     public JDBCPOST() throws URISyntaxException {
         try {
             connection = DriverManager.getConnection(url, login, password);
+            preparedStatement = connection.prepareStatement(SQL_STATEMENT);
             statement = connection.createStatement();
         } catch (SQLException e) {
             System.out.println("Error SQL Connecting");
@@ -211,20 +215,19 @@ public class JDBCPOST {
                             request.queryParams("iduser_1") + ")");
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
-                        String idchats = resultSet.getString("idchats");
+                        int idchats = Integer.parseInt(resultSet.getString("idchats"));
                         String key = resultSet.getString("key");
-                        String content;
+                        String content = request.queryParams("content");
 
-                        try {
-                            content = new String(request.queryParams("content").getBytes("UTF8"), "UTF8");
-                        } catch (UnsupportedEncodingException e) {
-                            content = request.queryParams("content");
-                        }
+                        preparedStatement.setInt(1, idchats);
+                        preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
+                        preparedStatement.setString(3, content);
+                        preparedStatement.executeUpdate();
 
-                        statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
-                                idchats + ", " +
-                                request.queryParams("iduser_2") + ", '" +
-                                content + "')");
+//                        statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
+//                                idchats + ", " +
+//                                request.queryParams("iduser_2") + ", '" +
+//                                content + "')");
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
