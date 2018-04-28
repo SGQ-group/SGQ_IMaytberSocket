@@ -252,6 +252,7 @@ public class JDBCPOST {
                     }
                 }
             } catch (Exception e) {
+                reply = e.getMessage();
             } finally {
                 try {
                     connection.close();
