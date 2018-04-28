@@ -214,6 +214,7 @@ public class JDBCPOST {
                         String idchats = resultSet.getString("idchats");
                         String key = resultSet.getString("key");
                         String content;
+
                         try {
                             content = new String(request.queryParams("content").getBytes("UTF8"), "UTF8");
                         } catch (UnsupportedEncodingException e) {
@@ -223,7 +224,7 @@ public class JDBCPOST {
                         statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
                                 idchats + ", " +
                                 request.queryParams("iduser_2") + ", '" +
-                                request.queryParams("content") + "')");
+                                content + "')");
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
