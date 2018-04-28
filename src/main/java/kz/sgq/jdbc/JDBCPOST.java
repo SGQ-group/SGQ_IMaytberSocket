@@ -215,11 +215,11 @@ public class JDBCPOST {
                             request.queryParams("iduser_1") + ")");
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
-                        int idchats = Integer.parseInt(resultSet.getString("idchats"));
+                        String idchats = resultSet.getString("idchats");
                         String key = resultSet.getString("key");
                         String content = request.queryParams("content");
 
-                        preparedStatement.setInt(1, idchats);
+                        preparedStatement.setInt(1, Integer.parseInt(idchats));
                         preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
                         preparedStatement.setString(3, content);
                         preparedStatement.executeUpdate();
