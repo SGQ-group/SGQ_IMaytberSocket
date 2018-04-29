@@ -170,6 +170,7 @@ public class JDBCGET {
                 chatList.add(replyMap);
             }
             for (int i = 0; i < chatList.size(); i++) {
+                preparedStatement.clearParameters();
                 preparedStatement = connection.prepareStatement(SQLStatement.getMessagesChat());
                 preparedStatement.setInt(1, Integer.parseInt(request.queryParams("idchats")));
                 resultSet = preparedStatement.executeQuery();
