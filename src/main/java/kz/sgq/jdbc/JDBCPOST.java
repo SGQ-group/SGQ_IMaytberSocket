@@ -136,6 +136,7 @@ public class JDBCPOST {
                         preparedStatement = connection.prepareStatement(SQLStatement.createFriend());
                         preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_1")));
                         preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
+                        preparedStatement.executeUpdate();
 //                        statement.execute("INSERT INTO friends (iduser_1,iduser_2) VALUES (" +
 //                                request.queryParams("iduser_1") + ", " +
 //                                request.queryParams("iduser_2") + ")");
