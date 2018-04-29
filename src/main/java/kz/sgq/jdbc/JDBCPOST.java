@@ -53,8 +53,8 @@ public class JDBCPOST {
         String reply = null;
         boolean check = false;
         try {
-            preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
-            preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+            preparedStatement = connection.prepareStatement(SQLStatement.getUserLogin());
+            preparedStatement.setString(1, request.queryParams("login"));
             ResultSet resultSet = preparedStatement.executeQuery();
 //            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
 //                    request.queryParams("login") + "'");
