@@ -169,9 +169,10 @@ public class JDBCGET {
                 replyMap.put("idchats", resultSet.getInt("idchats"));
                 chatList.add(replyMap);
             }
+            preparedStatement = connection.prepareStatement(SQLStatement.getMessagesChat());
             for (int i = 0; i < chatList.size(); i++) {
-                preparedStatement = connection.prepareStatement(SQLStatement.getMessagesChat());
-                preparedStatement.setInt(1, Integer.parseInt(request.queryParams("idchats")));
+
+                preparedStatement.setInt(1, chatList.get(i).get("idchats"));
                 resultSet = preparedStatement.executeQuery();
 //                resultSet = statement.executeQuery("SELECT * FROM messages WHERE idchats=" +
 //                        chatList.get(i).get("idchats"));
