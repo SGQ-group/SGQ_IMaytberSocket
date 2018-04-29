@@ -172,15 +172,15 @@ public class JDBCGET {
             for (int i = 0; i < chatList.size(); i++) {
                 preparedStatement = connection.prepareStatement(SQLStatement.getMessagesChat());
                 preparedStatement.setInt(1, Integer.parseInt(request.queryParams("idchats")));
-                ResultSet resultSet2 = preparedStatement.executeQuery();
+                resultSet = preparedStatement.executeQuery();
 //                resultSet = statement.executeQuery("SELECT * FROM messages WHERE idchats=" +
 //                        chatList.get(i).get("idchats"));
-                while (resultSet2.next()) {
+                while (resultSet.next()) {
                     HashMap<String, String> replyMap = new HashMap<>();
-                    replyMap.put("idmessage", resultSet2.getString("idmessages"));
-                    replyMap.put("idchat", resultSet2.getString("idchats"));
-                    replyMap.put("iduser", resultSet2.getString("iduser"));
-                    replyMap.put("content", resultSet2.getString("content"));
+                    replyMap.put("idmessage", resultSet.getString("idmessages"));
+                    replyMap.put("idchat", resultSet.getString("idchats"));
+                    replyMap.put("iduser", resultSet.getString("iduser"));
+                    replyMap.put("content", resultSet.getString("content"));
                     replyList.add(replyMap);
 
                 }
