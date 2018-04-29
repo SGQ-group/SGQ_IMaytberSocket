@@ -169,6 +169,7 @@ public class JDBCGET {
                 replyMap.put("idchats", resultSet.getInt("idchats"));
                 chatList.add(replyMap);
             }
+            preparedStatement.close();
             for (int i = 0; i < chatList.size(); i++) {
                 preparedStatement = connection.prepareStatement(SQLStatement.getMessagesChat());
                 preparedStatement.setInt(1, Integer.parseInt(request.queryParams("idchats")));
@@ -187,7 +188,7 @@ public class JDBCGET {
             }
             reply = new Gson().toJson(replyList);
         } catch (Exception e) {
-            reply = null;
+            reply = e.getMessage();
         } finally {
             try {
                 connection.close();
