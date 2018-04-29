@@ -3,6 +3,7 @@ package kz.sgq.jdbc;
 import com.google.gson.Gson;
 import kz.sgq.utils.FS_RC4;
 import kz.sgq.utils.KeyGen;
+import kz.sgq.utils.SQLStatement;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -26,7 +27,9 @@ public class JDBCPOST {
 
     private final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-    private final String keyA = "key=AAAAwog6t5c:APA91bH_UOXr_cu6cWTdneopBUQDh_rQHRAjHCTo_Oo6JKEzXwua7AcouDaXilxwfaRh19DvtZkVxfLlojDt5tYw_u9S4jwqpMDcurRttBy36SGpBp9YkI5mPqh9JyaSsysfyDS3_okL";
+    private final String keyA = "key=AAAAwog6t5c:APA91bH_UOXr_cu6cWTdneopBUQDh_rQHRAjHCTo_" +
+            "Oo6JKEzXwua7AcouDaXilxwfaRh19DvtZkVxfLlojDt5tYw_" +
+            "u9S4jwqpMDcurRttBy36SGpBp9YkI5mPqh9JyaSsysfyDS3_okL";
     private final String URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
     private URI dbUri = new URI(System.getenv("JAWSDB_URL"));
@@ -37,13 +40,10 @@ public class JDBCPOST {
     private Statement statement;
     private PreparedStatement preparedStatement;
 
-    private static final String SQL_STATEMENT = "INSERT INTO messages (idchats,iduser,content) VALUES (?, ?, ?)";
-
     public JDBCPOST() throws URISyntaxException {
         try {
             connection = DriverManager.getConnection(url, login, password);
-            preparedStatement = connection.prepareStatement(SQL_STATEMENT);
-            statement = connection.createStatement();
+//            statement = connection.createStatement();
         } catch (SQLException e) {
             System.out.println("Error SQL Connecting");
         }
@@ -53,8 +53,11 @@ public class JDBCPOST {
         String reply = null;
         boolean check = false;
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
-                    request.queryParams("login") + "'");
+            preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+            preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+            ResultSet resultSet = preparedStatement.executeQuery();
+//            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
+//                    request.queryParams("login") + "'");
             while (resultSet.next()) {
                 check = true;
             }
@@ -64,15 +67,25 @@ public class JDBCPOST {
                         request.queryParams("login").length() >= LENGTH_LOGIN &&
                         request.queryParams("token").length() >= LENGTH_TOKEN &&
                         request.queryParams("password").length() >= LENGTH_PASSWORD) {
-                    statement.execute("INSERT INTO users (avatar,nick,login,password,token) VALUES ('" +
-                            request.queryParams("avatar") + "', '" +
-                            request.queryParams("nick") + "', '" +
-                            request.queryParams("login") + "', '" +
-                            request.queryParams("password") + "', '" +
-                            request.queryParams("token") + "')");
-                    resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
-                            request.queryParams("login") + "' AND users.password='" +
-                            request.queryParams("password") + "'");
+                    preparedStatement = connection.prepareStatement(SQLStatement.createUser());
+                    preparedStatement.setString(1, request.queryParams("avatar"));
+                    preparedStatement.setString(2, request.queryParams("nick"));
+                    preparedStatement.setString(3, request.queryParams("login"));
+                    preparedStatement.setString(4, request.queryParams("password"));
+                    preparedStatement.setString(5, request.queryParams("token"));
+//                    statement.execute("INSERT INTO users (avatar,nick,login,password,token) VALUES ('" +
+//                            request.queryParams("avatar") + "', '" +
+//                            request.queryParams("nick") + "', '" +
+//                            request.queryParams("login") + "', '" +
+//                            request.queryParams("password") + "', '" +
+//                            request.queryParams("token") + "')");
+                    preparedStatement = connection.prepareStatement(SQLStatement.getLoginLoginPassword());
+                    preparedStatement.setString(1, request.queryParams("login"));
+                    preparedStatement.setString(2, request.queryParams("password"));
+                    resultSet = preparedStatement.executeQuery();
+//                    resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
+//                            request.queryParams("login") + "' AND users.password='" +
+//                            request.queryParams("password") + "'");
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
                         replyMap.put("iduser", resultSet.getString("idusers"));
@@ -103,22 +116,36 @@ public class JDBCPOST {
         try {
             if (Integer.parseInt(request.queryParams("iduser_1")) >= LENGTH_IDUSER &&
                     Integer.parseInt(request.queryParams("iduser_2")) >= LENGTH_IDUSER) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
-                        request.queryParams("iduser_1") + " AND friends.iduser_2=" +
-                        request.queryParams("iduser_2"));
+                preparedStatement = connection.prepareStatement(SQLStatement.checkFriend());
+                preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_1")));
+                preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
+                ResultSet resultSet = preparedStatement.executeQuery();
+//                ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
+//                        request.queryParams("iduser_1") + " AND friends.iduser_2=" +
+//                        request.queryParams("iduser_2"));
                 while (resultSet.next()) {
                     check = true;
                 }
                 if (!check) {
-                    resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                            request.queryParams("iduser_2"));
+                    preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                    preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_2")));
+                    resultSet = preparedStatement.executeQuery();
+//                    resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+//                            request.queryParams("iduser_2"));
                     while (resultSet.next()) {
-                        statement.execute("INSERT INTO friends (iduser_1,iduser_2) VALUES (" +
-                                request.queryParams("iduser_1") + ", " +
-                                request.queryParams("iduser_2") + ")");
-                        resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
-                                request.queryParams("iduser_1") + " AND friends.iduser_2=" +
-                                request.queryParams("iduser_2"));
+                        preparedStatement = connection.prepareStatement(SQLStatement.createFriend());
+                        preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_1")));
+                        preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
+//                        statement.execute("INSERT INTO friends (iduser_1,iduser_2) VALUES (" +
+//                                request.queryParams("iduser_1") + ", " +
+//                                request.queryParams("iduser_2") + ")");
+                        preparedStatement = connection.prepareStatement(SQLStatement.checkFriend());
+                        preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_1")));
+                        preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
+                        resultSet = preparedStatement.executeQuery();
+//                        resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
+//                                request.queryParams("iduser_1") + " AND friends.iduser_2=" +
+//                                request.queryParams("iduser_2"));
                         while (resultSet.next()) {
                             HashMap<String, String> replyMap = new HashMap<>();
                             replyMap.put("iduser_1", resultSet.getString("iduser_1"));
@@ -150,52 +177,80 @@ public class JDBCPOST {
                 request.queryParams("iduser_2").length() >= LENGTH_IDUSER &&
                 request.queryParams("content").length() >= LENGTH_CONTENT) {
             try {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
-                        request.queryParams("iduser_1") + " AND chats.iduser_2=" +
-                        request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
-                        request.queryParams("iduser_2") + " AND chats.iduser_2=" +
-                        request.queryParams("iduser_1") + ")");
+                preparedStatement = connection.prepareStatement(SQLStatement.checkChat());
+                preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_1")));
+                preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser_2")));
+                preparedStatement.setInt(3,Integer.parseInt(request.queryParams("iduser_2")));
+                preparedStatement.setInt(4,Integer.parseInt(request.queryParams("iduser_1")));
+                ResultSet resultSet = preparedStatement.executeQuery();
+//                ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
+//                        request.queryParams("iduser_1") + " AND chats.iduser_2=" +
+//                        request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
+//                        request.queryParams("iduser_2") + " AND chats.iduser_2=" +
+//                        request.queryParams("iduser_1") + ")");
                 while (resultSet.next())
                     check = false;
                 if (check) {
                     String key = new KeyGen().generate(5);
-                    statement.execute("INSERT INTO chats (iduser_1, iduser_2, chats.key) VALUES (" +
-                            request.queryParams("iduser_1") + ", " +
-                            request.queryParams("iduser_2") + ", '" +
-                            key + "')");
-
-                    resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
-                            request.queryParams("iduser_1") + " AND chats.iduser_2=" +
-                            request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
-                            request.queryParams("iduser_2") + " AND chats.iduser_2=" +
-                            request.queryParams("iduser_1") + ")");
+                    preparedStatement = connection.prepareStatement(SQLStatement.createChat());
+                    preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_1")));
+                    preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser_2")));
+                    preparedStatement.setString(3,key);
+                    preparedStatement.executeUpdate();
+//                    statement.execute("INSERT INTO chats (iduser_1, iduser_2, chats.key) VALUES (" +
+//                            request.queryParams("iduser_1") + ", " +
+//                            request.queryParams("iduser_2") + ", '" +
+//                            key + "')");
+                    preparedStatement = connection.prepareStatement(SQLStatement.checkChat());
+                    preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_1")));
+                    preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser_2")));
+                    preparedStatement.setInt(3,Integer.parseInt(request.queryParams("iduser_2")));
+                    preparedStatement.setInt(4,Integer.parseInt(request.queryParams("iduser_1")));
+                    resultSet = preparedStatement.executeQuery();
+//                    resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
+//                            request.queryParams("iduser_1") + " AND chats.iduser_2=" +
+//                            request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
+//                            request.queryParams("iduser_2") + " AND chats.iduser_2=" +
+//                            request.queryParams("iduser_1") + ")");
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
                         String content = new FS_RC4(key, request.queryParams("content")).start();
                         String idchats = resultSet.getString("idchats");
-                        statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
-                                idchats + ", " +
-                                request.queryParams("iduser_2") + ", '" +
-                                content + "')");
+                        preparedStatement = connection.prepareStatement(SQLStatement.createMessage());
+                        preparedStatement.setInt(1,Integer.parseInt(idchats));
+                        preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser_2")));
+                        preparedStatement.setString(3,content);
+                        preparedStatement.executeUpdate();
+//                        statement.execute("INSERT INTO messages (idchats,iduser,content) VALUES (" +
+//                                idchats + ", " +
+//                                request.queryParams("iduser_2") + ", '" +
+//                                content + "')");
                         replyMap.put("key", key);
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
-                        resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
-                                request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
+                        preparedStatement = connection.prepareStatement(SQLStatement.getLastMessageUser());
+                        preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_2")));
+                        resultSet = preparedStatement.executeQuery();
+//                        resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
+//                                request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                         while (resultSet.next()) {
                             replyMap.put("idmessage", resultSet.getString("idmessages"));
                             reply = new Gson().toJson(replyMap);
                         }
-
-                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                                request.queryParams("iduser_2"));
+                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                        preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_2")));
+                        resultSet = preparedStatement.executeQuery();
+//                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+//                                request.queryParams("iduser_2"));
                         while (resultSet.next()) {
                             token = resultSet.getString("token");
                         }
-
-                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                                request.queryParams("iduser_1"));
+                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                        preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_1")));
+                        resultSet = preparedStatement.executeQuery();
+//                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+//                                request.queryParams("iduser_1"));
                         while (resultSet.next()) {
                             nick = resultSet.getString("nick");
                         }
@@ -206,17 +261,24 @@ public class JDBCPOST {
                                     key, nick);
                     }
                 } else {
-                    resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
-                            request.queryParams("iduser_1") + " AND chats.iduser_2=" +
-                            request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
-                            request.queryParams("iduser_2") + " AND chats.iduser_2=" +
-                            request.queryParams("iduser_1") + ")");
+                    preparedStatement = connection.prepareStatement(SQLStatement.checkChat());
+                    preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_1")));
+                    preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser_2")));
+                    preparedStatement.setInt(3,Integer.parseInt(request.queryParams("iduser_2")));
+                    preparedStatement.setInt(4,Integer.parseInt(request.queryParams("iduser_1")));
+                    resultSet = preparedStatement.executeQuery();
+//                    resultSet = statement.executeQuery("SELECT * FROM chats WHERE (chats.iduser_1=" +
+//                            request.queryParams("iduser_1") + " AND chats.iduser_2=" +
+//                            request.queryParams("iduser_2") + ") OR (chats.iduser_1=" +
+//                            request.queryParams("iduser_2") + " AND chats.iduser_2=" +
+//                            request.queryParams("iduser_1") + ")");
                     while (resultSet.next()) {
                         HashMap<String, String> replyMap = new HashMap<>();
                         String idchats = resultSet.getString("idchats");
                         String key = resultSet.getString("key");
                         String content = request.queryParams("content");
 
+                        preparedStatement = connection.prepareStatement(SQLStatement.createMessage());
                         preparedStatement.setInt(1, Integer.parseInt(idchats));
                         preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
                         preparedStatement.setString(3, content);
@@ -225,21 +287,30 @@ public class JDBCPOST {
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
-                        resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
-                                request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
+                        preparedStatement = connection.prepareStatement(SQLStatement.getLastMessageUser());
+                        preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_2")));
+                        resultSet = preparedStatement.executeQuery();
+//                        resultSet = statement.executeQuery("SELECT * FROM messages WHERE messages.iduser=" +
+//                                request.queryParams("iduser_2") + " ORDER BY messages.idmessages DESC LIMIT 1");
                         while (resultSet.next()) {
                             replyMap.put("idmessage", resultSet.getString("idmessages"));
                             reply = new Gson().toJson(replyMap);
                         }
 
-                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                                request.queryParams("iduser_2"));
+                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                        preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_2")));
+                        resultSet = preparedStatement.executeQuery();
+//                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+//                                request.queryParams("iduser_2"));
                         while (resultSet.next()) {
                             token = resultSet.getString("token");
                         }
 
-                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-                                request.queryParams("iduser_1"));
+                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                        preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser_1")));
+                        resultSet = preparedStatement.executeQuery();
+//                        resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
+//                                request.queryParams("iduser_1"));
                         while (resultSet.next()) {
                             nick = resultSet.getString("nick");
                         }

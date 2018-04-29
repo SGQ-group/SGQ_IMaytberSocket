@@ -38,4 +38,27 @@ public class SQLStatement {
     public static String getMessagesChat(){
         return "SELECT * FROM messages WHERE idchats=?";
     }
+    public static String createUser(){
+        return "INSERT INTO users (avatar,nick,login,password,token) VALUES (?,?,?,?,?)";
+    }
+    public static String checkFriend(){
+        return "SELECT * FROM friends WHERE friends.iduser_1=? AND friends.iduser_2=?";
+    }
+    public static String createFriend(){
+        return "INSERT INTO friends (iduser_1,iduser_2) VALUES (?,?)";
+    }
+    public static String checkChat(){
+        return "SELECT * FROM chats WHERE (chats.iduser_1=? AND chats.iduser_2=?) OR " +
+                "(chats.iduser_1=? AND chats.iduser_2=?)";
+    }
+    public static String createChat(){
+        return "INSERT INTO chats (iduser_1, iduser_2, chats.key) VALUES (?,?,?)";
+    }
+    public static String createMessage(){
+        return "INSERT INTO messages (idchats,iduser,content) VALUES (?,?,?)";
+    }
+
+    public static String getLastMessageUser(){
+        return "SELECT * FROM messages WHERE messages.iduser=? ORDER BY messages.idmessages DESC LIMIT 1";
+    }
 }
