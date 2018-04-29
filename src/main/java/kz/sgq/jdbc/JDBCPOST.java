@@ -73,6 +73,7 @@ public class JDBCPOST {
                     preparedStatement.setString(3, request.queryParams("login"));
                     preparedStatement.setString(4, request.queryParams("password"));
                     preparedStatement.setString(5, request.queryParams("token"));
+                    preparedStatement.executeUpdate();
 //                    statement.execute("INSERT INTO users (avatar,nick,login,password,token) VALUES ('" +
 //                            request.queryParams("avatar") + "', '" +
 //                            request.queryParams("nick") + "', '" +
