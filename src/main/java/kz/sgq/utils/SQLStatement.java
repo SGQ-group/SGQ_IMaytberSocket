@@ -35,4 +35,7 @@ public class SQLStatement {
         return "SELECT * FROM chats WHERE iduser_1=? OR iduser_2=?";
     }
 
+    public static String getMessagesChat(){
+        return "SELECT * FROM messages WHERE idchats=?";
+    }
 }

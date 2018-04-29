@@ -13,13 +13,11 @@ public class JDBCPUT {
     private final String login = dbUri.getUserInfo().split(":")[0];
     private final String password = dbUri.getUserInfo().split(":")[1];
     private Connection connection;
-    private Statement statement;
     private PreparedStatement preparedStatement;
 
     public JDBCPUT() throws URISyntaxException {
         try {
             connection = DriverManager.getConnection(url, login, password);
-            statement = connection.createStatement();
         } catch (SQLException e) {
             System.out.println("Error SQL Connecting");
         }
@@ -33,16 +31,11 @@ public class JDBCPUT {
                 preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                 preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser")));
                 ResultSet resultSet = preparedStatement.executeQuery();
-//                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-//                        request.queryParams("iduser"));
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putNick());
                     preparedStatement.setString(1,request.queryParams("nick"));
                     preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser")));
                     preparedStatement.executeUpdate();
-//                    statement.execute("UPDATE users SET nick='" +
-//                            request.queryParams("nick") + "' where idusers=" +
-//                            request.queryParams("iduser"));
                     check = true;
                 }
             }
@@ -68,16 +61,11 @@ public class JDBCPUT {
                 preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                 preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
                 ResultSet resultSet = preparedStatement.executeQuery();
-//                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-//                        request.queryParams("iduser"));
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putToken());
                     preparedStatement.setString(1,request.queryParams("token"));
                     preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser")));
                     preparedStatement.executeUpdate();
-//                    statement.execute("UPDATE users SET token='" +
-//                            request.queryParams("token") + "' where idusers=" +
-//                            request.queryParams("iduser"));
                     check = true;
                 }
             }
@@ -103,16 +91,11 @@ public class JDBCPUT {
                 preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                 preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
                 ResultSet resultSet = preparedStatement.executeQuery();
-//                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.idusers=" +
-//                        request.queryParams("iduser"));
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putAvatar());
                     preparedStatement.setString(1,request.queryParams("avatar"));
                     preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser")));
                     preparedStatement.executeUpdate();
-//                    statement.execute("UPDATE users SET avatar='" +
-//                            request.queryParams("avatar") + "' where idusers=" +
-//                            request.queryParams("iduser"));
                     check = true;
                 }
             }
@@ -137,16 +120,11 @@ public class JDBCPUT {
                 preparedStatement = connection.prepareStatement(SQLStatement.getUserLogin());
                 preparedStatement.setString(1, request.queryParams("login"));
                 ResultSet resultSet = preparedStatement.executeQuery();
-//                ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
-//                        request.queryParams("login") + "'");
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putPassword());
                     preparedStatement.setString(1,request.queryParams("password"));
                     preparedStatement.setString(2,request.queryParams("login"));
                     preparedStatement.executeUpdate();
-//                    statement.execute("UPDATE users SET password='" +
-//                            request.queryParams("password") + "' where login='" +
-//                            request.queryParams("login") + "'");
                     check = true;
                 }
             }

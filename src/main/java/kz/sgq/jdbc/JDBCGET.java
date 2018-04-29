@@ -1,6 +1,7 @@
 package kz.sgq.jdbc;
 
 import com.google.gson.Gson;
+import kz.sgq.utils.SQLStatement;
 import spark.Request;
 
 import java.net.URI;
@@ -22,7 +23,7 @@ public class JDBCGET {
     public JDBCGET() throws URISyntaxException {
         try {
             connection = DriverManager.getConnection(url, login, password);
-            statement = connection.createStatement();
+//            statement = connection.createStatement();
         } catch (SQLException e) {
             System.out.println("Error SQL Connecting");
         }
@@ -32,8 +33,11 @@ public class JDBCGET {
         String reply = null;
         try {
             if (Integer.parseInt(request.queryParams("iduser")) > 0) {
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
-                        request.queryParams("iduser"));
+                preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId());
+                preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+                ResultSet resultSet = preparedStatement.executeQuery();
+//                ResultSet resultSet = statement.executeQuery("SELECT * FROM friends WHERE friends.iduser_1=" +
+//                        request.queryParams("iduser"));
                 ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
                 while (resultSet.next()) {
                     HashMap<String, String> replyMap = new HashMap<>();
@@ -61,8 +65,11 @@ public class JDBCGET {
     public String printProfile(Request request) {
         String reply = null;
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE idusers=" +
-                    request.queryParams("iduser"));
+            preparedStatement = connection.prepareStatement(SQLStatement.getProfileId());
+            preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+            ResultSet resultSet = preparedStatement.executeQuery();
+//            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE idusers=" +
+//                    request.queryParams("iduser"));
             while (resultSet.next()) {
                 HashMap<String, String> replyMap = new HashMap<>();
                 replyMap.put("avatar", resultSet.getString("avatar"));
@@ -85,9 +92,13 @@ public class JDBCGET {
     public String printChats(Request request) {
         String reply = null;
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE iduser_1=" +
-                    request.queryParams("iduser") + " OR iduser_2=" +
-                    request.queryParams("iduser"));
+            preparedStatement = connection.prepareStatement(SQLStatement.getChatsId());
+            preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+            preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser")));
+            ResultSet resultSet = preparedStatement.executeQuery();
+//            ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE iduser_1=" +
+//                    request.queryParams("iduser") + " OR iduser_2=" +
+//                    request.queryParams("iduser"));
             ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
             while (resultSet.next()) {
                 HashMap<String, String> replyMap = new HashMap<>();
@@ -113,9 +124,13 @@ public class JDBCGET {
     public String printLogin(Request request) {
         String reply = null;
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
-                    request.queryParams("login") + "' AND users.password='" +
-                    request.queryParams("password") + "'");
+            preparedStatement = connection.prepareStatement(SQLStatement.getLoginLoginPassword());
+            preparedStatement.setString(1, request.queryParams("login"));
+            preparedStatement.setString(2, request.queryParams("password"));
+            ResultSet resultSet = preparedStatement.executeQuery();
+//            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE users.login='" +
+//                    request.queryParams("login") + "' AND users.password='" +
+//                    request.queryParams("password") + "'");
             while (resultSet.next()) {
                 HashMap<String, String> replyMap = new HashMap<>();
                 replyMap.put("iduser", resultSet.getString("idusers"));
@@ -142,17 +157,24 @@ public class JDBCGET {
         ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
         String reply;
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE iduser_1=" +
-                    request.queryParams("iduser") + " OR iduser_2=" +
-                    request.queryParams("iduser"));
+            preparedStatement = connection.prepareStatement(SQLStatement.getMessagesId());
+            preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+            preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser")));
+            ResultSet resultSet = preparedStatement.executeQuery();
+//            ResultSet resultSet = statement.executeQuery("SELECT * FROM chats WHERE iduser_1=" +
+//                    request.queryParams("iduser") + " OR iduser_2=" +
+//                    request.queryParams("iduser"));
             while (resultSet.next()) {
                 HashMap<String, Integer> replyMap = new HashMap<>();
                 replyMap.put("idchats", resultSet.getInt("idchats"));
                 chatList.add(replyMap);
             }
             for (int i = 0; i < chatList.size(); i++) {
-                resultSet = statement.executeQuery("SELECT * FROM messages WHERE idchats=" +
-                        chatList.get(i).get("idchats"));
+                preparedStatement = connection.prepareStatement(SQLStatement.getMessagesChat());
+                preparedStatement.setInt(1, Integer.parseInt(request.queryParams("idchats")));
+                resultSet = preparedStatement.executeQuery();
+//                resultSet = statement.executeQuery("SELECT * FROM messages WHERE idchats=" +
+//                        chatList.get(i).get("idchats"));
                 while (resultSet.next()) {
                     HashMap<String, String> replyMap = new HashMap<>();
                     replyMap.put("idmessage", resultSet.getString("idmessages"));
