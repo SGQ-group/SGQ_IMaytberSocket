@@ -165,6 +165,7 @@ public class JDBCGET {
                     replyMap.put("idchat", resultSet.getString("idchats"));
                     replyMap.put("iduser", resultSet.getString("iduser"));
                     replyMap.put("content", resultSet.getString("content"));
+                    replyMap.put("time", resultSet.getString("time"));
                     replyList.add(replyMap);
 
                 }

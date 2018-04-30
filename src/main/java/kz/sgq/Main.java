@@ -33,6 +33,7 @@ public class Main {
          * & iduser_1
          * & iduser_2
          * & content
+         * & time
          */
         post("/message", (request, response) -> new JDBCPOST().createMS(request));
 

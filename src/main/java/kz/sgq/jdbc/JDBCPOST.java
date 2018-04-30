@@ -182,10 +182,12 @@ public class JDBCPOST {
                         HashMap<String, String> replyMap = new HashMap<>();
                         String content = new FS_RC4(key, request.queryParams("content")).start();
                         String idchats = resultSet.getString("idchats");
+                        String time = request.queryParams("time");
                         preparedStatement = connection.prepareStatement(SQLStatement.createMessage());
                         preparedStatement.setInt(1, Integer.parseInt(idchats));
                         preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
                         preparedStatement.setString(3, content);
+                        preparedStatement.setString(4, request.queryParams("time"));
                         preparedStatement.executeUpdate();
                         replyMap.put("key", key);
                         replyMap.put("idchat", idchats);
@@ -214,7 +216,7 @@ public class JDBCPOST {
                             postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
                                     request.queryParams("iduser_2"), replyMap.get("content"),
                                     request.queryParams("iduser_1"), request.queryParams("iduser_2"),
-                                    key, nick);
+                                    key, nick, time);
                     }
                 } else {
                     preparedStatement = connection.prepareStatement(SQLStatement.checkChat());
@@ -228,11 +230,13 @@ public class JDBCPOST {
                         String idchats = resultSet.getString("idchats");
                         String key = resultSet.getString("key");
                         String content = request.queryParams("content");
+                        String time = request.queryParams("time");
 
                         preparedStatement = connection.prepareStatement(SQLStatement.createMessage());
                         preparedStatement.setInt(1, Integer.parseInt(idchats));
                         preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
                         preparedStatement.setString(3, content);
+                        preparedStatement.setString(4, request.queryParams("time"));
                         preparedStatement.executeUpdate();
 
                         replyMap.put("idchat", idchats);
@@ -262,7 +266,7 @@ public class JDBCPOST {
                         postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
                                 request.queryParams("iduser_2"), replyMap.get("content"),
                                 request.queryParams("iduser_1"), request.queryParams("iduser_2"),
-                                key, nick);
+                                key, nick, time);
                     }
                 }
             } catch (Exception e) {
@@ -281,7 +285,8 @@ public class JDBCPOST {
     }
 
     private void postFCM(String token, String idmessages, String idchats, String iduser,
-                         String content, String iduser_1, String iduser_2, String key, String nick) throws IOException {
+                         String content, String iduser_1, String iduser_2, String key, String nick,
+                         String time) throws IOException {
         OkHttpClient client = new OkHttpClient();
         String json = "{" +
                 "  \"to\": \"" + token + "\", " +
@@ -293,6 +298,7 @@ public class JDBCPOST {
                 "    \"iduser_1\":\"" + iduser_1 + "\"," +
                 "    \"iduser_2\":\"" + iduser_2 + "\"," +
                 "    \"nick\":\"" + nick + "\"," +
+                "    \"time\":\"" + time + "\"," +
                 "    \"key\":\"" + key + "\"" +
                 "  }" +
                 "}";
