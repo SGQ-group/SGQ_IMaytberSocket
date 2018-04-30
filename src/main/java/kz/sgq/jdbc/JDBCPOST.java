@@ -193,6 +193,7 @@ public class JDBCPOST {
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
+                        replyMap.put("time", time);
                         preparedStatement = connection.prepareStatement(SQLStatement.getLastMessageUser());
                         preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_2")));
                         resultSet = preparedStatement.executeQuery();
@@ -242,6 +243,7 @@ public class JDBCPOST {
                         replyMap.put("idchat", idchats);
                         replyMap.put("iduser", request.queryParams("iduser_2"));
                         replyMap.put("content", content);
+                        replyMap.put("time", time);
                         preparedStatement = connection.prepareStatement(SQLStatement.getLastMessageUser());
                         preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_2")));
                         resultSet = preparedStatement.executeQuery();
