@@ -12,8 +12,10 @@ import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class JDBCPUT {
+    private final Logger logger = Logger.getLogger(JDBCPUT.class.getName());
     private final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
     private final String keyA = "key=AAAAwog6t5c:APA91bH_UOXr_cu6cWTdneopBUQDh_rQHRAjHCTo_" +
@@ -59,6 +61,7 @@ public class JDBCPUT {
                     while (resultSet.next()) {
                         idUserList.add(resultSet.getInt("iduser_2"));
                     }
+                    logger.info(String.valueOf(idUserList.size()));
                     for (int i = 0; i < idUserList.size(); i++) {
                         preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                         preparedStatement.setInt(1, idUserList.get(i));
@@ -66,6 +69,7 @@ public class JDBCPUT {
                             tokenList.add(resultSet.getString("token"));
                         }
                     }
+                    logger.info(String.valueOf(tokenList.size()));
                     for (int i = 0; i < tokenList.size(); i++) {
                         nickFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("nick"));
                     }
