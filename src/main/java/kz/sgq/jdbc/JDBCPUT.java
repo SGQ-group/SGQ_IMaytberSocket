@@ -152,8 +152,8 @@ public class JDBCPUT {
                     }
                     preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                     for (int i = 0; i < idUserList.size(); i++) {
-                        resultSet = preparedStatement.executeQuery();
                         preparedStatement.setInt(1, idUserList.get(i));
+                        resultSet = preparedStatement.executeQuery();
                         while (resultSet.next()) {
                             tokenList.add(resultSet.getString("token"));
                         }
