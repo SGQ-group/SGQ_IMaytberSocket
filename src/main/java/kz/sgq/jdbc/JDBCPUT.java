@@ -59,8 +59,11 @@ public class JDBCPUT {
                     List<String> tokenList = new ArrayList<>();
                     preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId());
                     preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+                    logger.info(preparedStatement.toString());
+                    logger.info(request.queryParams("iduser"));
                     resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
+                        logger.info("idUserList.add");
                         idUserList.add(resultSet.getInt("iduser_2"));
                     }
                     logger.info("idUserList item: "+idUserList.get(1));
