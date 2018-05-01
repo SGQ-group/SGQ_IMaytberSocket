@@ -61,15 +61,16 @@ public class JDBCPUT {
                     while (resultSet.next()) {
                         idUserList.add(resultSet.getInt("iduser_2"));
                     }
-                    logger.info(String.valueOf(idUserList.size()));
+                    logger.info("idUserList item: "+idUserList.get(1));
                     for (int i = 0; i < idUserList.size(); i++) {
                         preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                         preparedStatement.setInt(1, idUserList.get(i));
                         while (resultSet.next()) {
+                            logger.info("token add");
                             tokenList.add(resultSet.getString("token"));
                         }
                     }
-                    logger.info(String.valueOf(tokenList.size()));
+                    logger.info("tokenList: "+tokenList.size());
                     for (int i = 0; i < tokenList.size(); i++) {
                         nickFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("nick"));
                     }
