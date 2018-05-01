@@ -61,7 +61,7 @@ public class JDBCGET {
     public String printProfile(Request request) {
         String reply = null;
         try {
-            preparedStatement = connection.prepareStatement(SQLStatement.getProfileId());
+            preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
             preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

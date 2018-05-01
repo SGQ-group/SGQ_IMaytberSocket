@@ -1,13 +1,25 @@
 package kz.sgq.jdbc;
 
 import kz.sgq.utils.SQLStatement;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import spark.Request;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JDBCPUT {
+    private final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+    private final String keyA = "key=AAAAwog6t5c:APA91bH_UOXr_cu6cWTdneopBUQDh_rQHRAjHCTo_" +
+            "Oo6JKEzXwua7AcouDaXilxwfaRh19DvtZkVxfLlojDt5tYw_" +
+            "u9S4jwqpMDcurRttBy36SGpBp9YkI5mPqh9JyaSsysfyDS3_okL";
+    private final String URL_FCM = "https://fcm.googleapis.com/fcm/send";
     private URI dbUri = new URI(System.getenv("JAWSDB_URL"));
     private final String url = "jdbc:mysql://" + dbUri.getHost() + dbUri.getPath();
     private final String login = dbUri.getUserInfo().split(":")[0];
@@ -38,9 +50,28 @@ public class JDBCPUT {
                     preparedStatement.executeUpdate();
                     check = true;
                 }
+                if (check){
+                    List<Integer> idUserList = new ArrayList<>();
+                    List<String> tokenList = new ArrayList<>();
+                    preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId());
+                    preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+                    resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        idUserList.add(resultSet.getInt("iduser_2"));
+                    }
+                    for (int i = 0; i < idUserList.size(); i++) {
+                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                        preparedStatement.setInt(1, idUserList.get(i));
+                        while (resultSet.next()) {
+                            tokenList.add(resultSet.getString("token"));
+                        }
+                    }
+                    for (int i = 0; i < tokenList.size(); i++) {
+                        nickFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("nick"));
+                    }
+                }
             }
         } catch (Exception e) {
-//            check = false;
         } finally {
             try {
                 connection.close();
@@ -98,6 +129,26 @@ public class JDBCPUT {
                     preparedStatement.executeUpdate();
                     check = true;
                 }
+                if (check){
+                    List<Integer> idUserList = new ArrayList<>();
+                    List<String> tokenList = new ArrayList<>();
+                    preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId());
+                    preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+                    resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        idUserList.add(resultSet.getInt("iduser_2"));
+                    }
+                    for (int i = 0; i < idUserList.size(); i++) {
+                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                        preparedStatement.setInt(1, idUserList.get(i));
+                        while (resultSet.next()) {
+                            tokenList.add(resultSet.getString("token"));
+                        }
+                    }
+                    for (int i = 0; i < tokenList.size(); i++) {
+                        avatarFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("avatar"));
+                    }
+                }
             }
         } catch (Exception e) {
         } finally {
@@ -139,5 +190,41 @@ public class JDBCPUT {
         if (check)
             return "200 OK";
         return null;
+    }
+
+    private void nickFCM(String token, String iduser, String nick) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        String json = "{" +
+                "  \"to\": \"" + token + "\", " +
+                "  \"data\": {" +
+                "    \"iduser\":\"" + iduser + "\"," +
+                "    \"nick\":\"" + nick + "\"" +
+                "  }" +
+                "}";
+        RequestBody requestBody = RequestBody.create(JSON, json);
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .header("Authorization", keyA)
+                .url(URL_FCM)
+                .post(requestBody)
+                .build();
+        client.newCall(request).execute();
+    }
+
+    private void avatarFCM(String token, String iduser, String avatar) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        String json = "{" +
+                "  \"to\": \"" + token + "\", " +
+                "  \"data\": {" +
+                "    \"iduser\":\"" + iduser + "\"," +
+                "    \"avatar\":\"" + avatar + "\"" +
+                "  }" +
+                "}";
+        RequestBody requestBody = RequestBody.create(JSON, json);
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .header("Authorization", keyA)
+                .url(URL_FCM)
+                .post(requestBody)
+                .build();
+        client.newCall(request).execute();
     }
 }

@@ -29,10 +29,6 @@ public class SQLStatement {
         return "SELECT * FROM friends WHERE friends.iduser_1=?";
     }
 
-    public static String getProfileId() {
-        return "SELECT * FROM users WHERE idusers=?";
-    }
-
     public static String getChatsId() {
         return "SELECT * FROM chats WHERE iduser_1=? OR iduser_2=?";
     }
