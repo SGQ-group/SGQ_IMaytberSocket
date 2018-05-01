@@ -42,6 +42,7 @@ public class JDBCPUT {
         try {
             if (request.queryParams("iduser") != null &&
                     request.queryParams("nick") != null) {
+                logger.info("putNick");
                 preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                 preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser")));
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -53,6 +54,7 @@ public class JDBCPUT {
                     check = true;
                 }
                 if (check){
+                    logger.info("check");
                     List<Integer> idUserList = new ArrayList<>();
                     List<String> tokenList = new ArrayList<>();
                     preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId());
