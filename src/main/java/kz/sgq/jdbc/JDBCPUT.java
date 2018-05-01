@@ -44,29 +44,28 @@ public class JDBCPUT {
                     request.queryParams("nick") != null) {
                 logger.info("putNick");
                 preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
-                preparedStatement.setInt(1,Integer.parseInt(request.queryParams("iduser")));
+                preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putNick());
-                    preparedStatement.setString(1,request.queryParams("nick"));
-                    preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser")));
+                    preparedStatement.setString(1, request.queryParams("nick"));
+                    preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser")));
                     preparedStatement.executeUpdate();
                     check = true;
                 }
-                if (check){
+                if (check) {
                     logger.info("check");
                     List<Integer> idUserList = new ArrayList<>();
                     List<String> tokenList = new ArrayList<>();
-                    preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId());
+                    preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId2());
                     preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
                     logger.info(preparedStatement.toString());
-                    logger.info(request.queryParams("iduser"));
                     resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
                         logger.info("idUserList.add");
-                        idUserList.add(resultSet.getInt("iduser_2"));
+                        idUserList.add(resultSet.getInt("iduser_1"));
                     }
-                    logger.info("idUserList item: "+idUserList.get(1));
+                    logger.info("idUserList item: " + idUserList.size());
                     for (int i = 0; i < idUserList.size(); i++) {
                         preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                         preparedStatement.setInt(1, idUserList.get(i));
@@ -76,7 +75,7 @@ public class JDBCPUT {
                             tokenList.add(resultSet.getString("token"));
                         }
                     }
-                    logger.info("tokenList: "+tokenList.size());
+                    logger.info("tokenList: " + tokenList.size());
                     for (int i = 0; i < tokenList.size(); i++) {
                         nickFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("nick"));
                     }
@@ -106,8 +105,8 @@ public class JDBCPUT {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putToken());
-                    preparedStatement.setString(1,request.queryParams("token"));
-                    preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser")));
+                    preparedStatement.setString(1, request.queryParams("token"));
+                    preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser")));
                     preparedStatement.executeUpdate();
                     check = true;
                 }
@@ -136,19 +135,19 @@ public class JDBCPUT {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putAvatar());
-                    preparedStatement.setString(1,request.queryParams("avatar"));
-                    preparedStatement.setInt(2,Integer.parseInt(request.queryParams("iduser")));
+                    preparedStatement.setString(1, request.queryParams("avatar"));
+                    preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser")));
                     preparedStatement.executeUpdate();
                     check = true;
                 }
-                if (check){
+                if (check) {
                     List<Integer> idUserList = new ArrayList<>();
                     List<String> tokenList = new ArrayList<>();
-                    preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId());
+                    preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId2());
                     preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
                     resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-                        idUserList.add(resultSet.getInt("iduser_2"));
+                        idUserList.add(resultSet.getInt("iduser_1"));
                     }
                     for (int i = 0; i < idUserList.size(); i++) {
                         preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
@@ -185,8 +184,8 @@ public class JDBCPUT {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     preparedStatement = connection.prepareStatement(SQLStatement.putPassword());
-                    preparedStatement.setString(1,request.queryParams("password"));
-                    preparedStatement.setString(2,request.queryParams("login"));
+                    preparedStatement.setString(1, request.queryParams("password"));
+                    preparedStatement.setString(2, request.queryParams("login"));
                     preparedStatement.executeUpdate();
                     check = true;
                 }
