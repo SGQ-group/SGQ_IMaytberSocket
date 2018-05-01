@@ -42,7 +42,6 @@ public class JDBCPUT {
         try {
             if (request.queryParams("iduser") != null &&
                     request.queryParams("nick") != null) {
-                logger.info("putNick");
                 preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                 preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -54,29 +53,23 @@ public class JDBCPUT {
                     check = true;
                 }
                 if (check) {
-                    logger.info("check");
                     List<Integer> idUserList = new ArrayList<>();
                     List<String> tokenList = new ArrayList<>();
                     preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId2());
                     preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
-                    logger.info(preparedStatement.toString());
                     resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-                        logger.info("idUserList.add");
                         idUserList.add(resultSet.getInt("iduser_1"));
                     }
-                    logger.info("idUserList item: " + idUserList.size());
                     preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                     for (int i = 0; i < idUserList.size(); i++) {
                         preparedStatement.setInt(1, idUserList.get(i));
                         resultSet = preparedStatement.executeQuery();
-                        logger.info(preparedStatement.toString());
                         while (resultSet.next()) {
                             logger.info("token add");
                             tokenList.add(resultSet.getString("token"));
                         }
                     }
-                    logger.info("tokenList: " + tokenList.size());
                     for (int i = 0; i < tokenList.size(); i++) {
                         nickFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("nick"));
                     }
