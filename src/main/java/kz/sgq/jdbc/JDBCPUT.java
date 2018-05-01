@@ -70,6 +70,7 @@ public class JDBCPUT {
                     for (int i = 0; i < idUserList.size(); i++) {
                         preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                         preparedStatement.setInt(1, idUserList.get(i));
+                        logger.info(preparedStatement.toString());
                         while (resultSet.next()) {
                             logger.info("token add");
                             tokenList.add(resultSet.getString("token"));
@@ -82,6 +83,7 @@ public class JDBCPUT {
                 }
             }
         } catch (Exception e) {
+            logger.info(e.getMessage());
         } finally {
             try {
                 connection.close();
