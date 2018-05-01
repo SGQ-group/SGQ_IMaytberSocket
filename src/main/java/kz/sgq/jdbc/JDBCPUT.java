@@ -66,9 +66,10 @@ public class JDBCPUT {
                         idUserList.add(resultSet.getInt("iduser_1"));
                     }
                     logger.info("idUserList item: " + idUserList.size());
+                    preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                     for (int i = 0; i < idUserList.size(); i++) {
-                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                         preparedStatement.setInt(1, idUserList.get(i));
+                        resultSet = preparedStatement.executeQuery();
                         logger.info(preparedStatement.toString());
                         while (resultSet.next()) {
                             logger.info("token add");
@@ -149,8 +150,9 @@ public class JDBCPUT {
                     while (resultSet.next()) {
                         idUserList.add(resultSet.getInt("iduser_1"));
                     }
+                    preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
                     for (int i = 0; i < idUserList.size(); i++) {
-                        preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                        resultSet = preparedStatement.executeQuery();
                         preparedStatement.setInt(1, idUserList.get(i));
                         while (resultSet.next()) {
                             tokenList.add(resultSet.getString("token"));
