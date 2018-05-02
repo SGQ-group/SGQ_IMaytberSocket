@@ -66,6 +66,13 @@ public class Main {
         put("/token", (request, response) -> new JDBCPUT().putToken(request));
 
         /**
+         * https://example.com/bio ?
+         * & iduser
+         * & bio
+         */
+        put("/bio", (request, response) -> new JDBCPUT().putBio(request));
+
+        /**
          * https://example.com/friend ?
          * & iduser
          */
