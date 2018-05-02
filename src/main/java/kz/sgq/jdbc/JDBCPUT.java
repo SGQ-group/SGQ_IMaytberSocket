@@ -66,12 +66,61 @@ public class JDBCPUT {
                         preparedStatement.setInt(1, idUserList.get(i));
                         resultSet = preparedStatement.executeQuery();
                         while (resultSet.next()) {
-                            logger.info("token add");
                             tokenList.add(resultSet.getString("token"));
                         }
                     }
                     for (int i = 0; i < tokenList.size(); i++) {
                         nickFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("nick"));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (check)
+            return "200 OK";
+        return null;
+    }
+    public String putBio(Request request) {
+        boolean check = false;
+        try {
+            if (request.queryParams("iduser") != null &&
+                    request.queryParams("bio") != null) {
+                preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    preparedStatement = connection.prepareStatement(SQLStatement.putBio());
+                    preparedStatement.setString(1, request.queryParams("bio"));
+                    preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser")));
+                    preparedStatement.executeUpdate();
+                    check = true;
+                }
+                if (check) {
+                    List<Integer> idUserList = new ArrayList<>();
+                    List<String> tokenList = new ArrayList<>();
+                    preparedStatement = connection.prepareStatement(SQLStatement.getFriendsId2());
+                    preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser")));
+                    resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        idUserList.add(resultSet.getInt("iduser_1"));
+                    }
+                    preparedStatement = connection.prepareStatement(SQLStatement.getUserId());
+                    for (int i = 0; i < idUserList.size(); i++) {
+                        preparedStatement.setInt(1, idUserList.get(i));
+                        resultSet = preparedStatement.executeQuery();
+                        while (resultSet.next()) {
+                            tokenList.add(resultSet.getString("token"));
+                        }
+                    }
+                    for (int i = 0; i < tokenList.size(); i++) {
+                        bioFCM(tokenList.get(i), request.queryParams("iduser"), request.queryParams("bio"));
                     }
                 }
             }
@@ -205,6 +254,24 @@ public class JDBCPUT {
                 "  \"data\": {" +
                 "    \"iduser\":\"" + iduser + "\"," +
                 "    \"nick\":\"" + nick + "\"" +
+                "  }" +
+                "}";
+        RequestBody requestBody = RequestBody.create(JSON, json);
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .header("Authorization", keyA)
+                .url(URL_FCM)
+                .post(requestBody)
+                .build();
+        client.newCall(request).execute();
+    }
+
+    private void bioFCM(String token, String iduser, String bio) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        String json = "{" +
+                "  \"to\": \"" + token + "\", " +
+                "  \"data\": {" +
+                "    \"iduser\":\"" + iduser + "\"," +
+                "    \"bio\":\"" + bio + "\"" +
                 "  }" +
                 "}";
         RequestBody requestBody = RequestBody.create(JSON, json);

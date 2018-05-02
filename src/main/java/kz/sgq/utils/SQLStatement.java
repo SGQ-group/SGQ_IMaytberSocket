@@ -9,6 +9,10 @@ public class SQLStatement {
         return "UPDATE users SET token=? where idusers=?";
     }
 
+    public static String putBio() {
+        return "UPDATE users SET bio=? where idusers=?";
+    }
+
     public static String putAvatar() {
         return "UPDATE users SET avatar=? where idusers=?";
     }

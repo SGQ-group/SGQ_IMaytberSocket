@@ -69,6 +69,7 @@ public class JDBCGET {
                 replyMap.put("avatar", resultSet.getString("avatar"));
                 replyMap.put("nick", resultSet.getString("nick"));
                 replyMap.put("iduser", resultSet.getString("idusers"));
+                replyMap.put("bio", resultSet.getString("bio"));
                 reply = new Gson().toJson(replyMap);
             }
         } catch (Exception e) {
