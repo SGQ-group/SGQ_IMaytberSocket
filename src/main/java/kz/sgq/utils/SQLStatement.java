@@ -5,6 +5,10 @@ public class SQLStatement {
         return "UPDATE users SET nick=? where idusers=?";
     }
 
+    public static String putRead() {
+        return "UPDATE chats SET read=? where idchats=?";
+    }
+
     public static String putToken() {
         return "UPDATE users SET token=? where idusers=?";
     }
@@ -40,6 +44,9 @@ public class SQLStatement {
     public static String getChatsId() {
         return "SELECT * FROM chats WHERE iduser_1=? OR iduser_2=?";
     }
+    public static String getChat() {
+        return "SELECT * FROM chats WHERE idchats=?";
+    }
 
     public static String getLoginLoginPassword() {
         return "SELECT * FROM users WHERE users.login=? AND users.password=?";
@@ -71,7 +78,7 @@ public class SQLStatement {
     }
 
     public static String createChat() {
-        return "INSERT INTO chats (iduser_1, iduser_2, chats.key) VALUES (?,?,?)";
+        return "INSERT INTO chats (iduser_1, iduser_2, chats.key, chats.read) VALUES (?,?,?,?)";
     }
 
     public static String createMessage() {

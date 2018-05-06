@@ -171,6 +171,7 @@ public class JDBCPOST {
                     preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_1")));
                     preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser_2")));
                     preparedStatement.setString(3, key);
+                    preparedStatement.setInt(4, 0);
                     preparedStatement.executeUpdate();
                     preparedStatement = connection.prepareStatement(SQLStatement.checkChat());
                     preparedStatement.setInt(1, Integer.parseInt(request.queryParams("iduser_1")));
@@ -182,6 +183,12 @@ public class JDBCPOST {
                         HashMap<String, String> replyMap = new HashMap<>();
                         String content = new FS_RC4(key, request.queryParams("content")).start();
                         String idchats = resultSet.getString("idchats");
+                        int read = resultSet.getInt("read") + 1;
+                        preparedStatement = connection.prepareStatement(SQLStatement.putRead());
+                        preparedStatement.setInt(1, Integer.parseInt(idchats));
+                        preparedStatement.setInt(2, read);
+                        preparedStatement.executeUpdate();
+
                         String time = request.queryParams("time");
                         preparedStatement = connection.prepareStatement(SQLStatement.createMessage());
                         preparedStatement.setInt(1, Integer.parseInt(idchats));
@@ -217,7 +224,7 @@ public class JDBCPOST {
                             postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
                                     request.queryParams("iduser_2"), replyMap.get("content"),
                                     request.queryParams("iduser_1"), request.queryParams("iduser_2"),
-                                    key, nick, time);
+                                    key, nick, time, read);
                     }
                 } else {
                     preparedStatement = connection.prepareStatement(SQLStatement.checkChat());
@@ -232,6 +239,11 @@ public class JDBCPOST {
                         String key = resultSet.getString("key");
                         String content = request.queryParams("content");
                         String time = request.queryParams("time");
+                        int read = resultSet.getInt("read") + 1;
+                        preparedStatement = connection.prepareStatement(SQLStatement.putRead());
+                        preparedStatement.setInt(1, Integer.parseInt(idchats));
+                        preparedStatement.setInt(2, read);
+                        preparedStatement.executeUpdate();
 
                         preparedStatement = connection.prepareStatement(SQLStatement.createMessage());
                         preparedStatement.setInt(1, Integer.parseInt(idchats));
@@ -268,7 +280,7 @@ public class JDBCPOST {
                         postFCM(token, replyMap.get("idmessage"), replyMap.get("idchat"),
                                 request.queryParams("iduser_2"), replyMap.get("content"),
                                 request.queryParams("iduser_1"), request.queryParams("iduser_2"),
-                                key, nick, time);
+                                key, nick, time, read);
                     }
                 }
             } catch (Exception e) {
@@ -288,7 +300,7 @@ public class JDBCPOST {
 
     private void postFCM(String token, String idmessages, String idchats, String iduser,
                          String content, String iduser_1, String iduser_2, String key, String nick,
-                         String time) throws IOException {
+                         String time, int read) throws IOException {
         OkHttpClient client = new OkHttpClient();
         String json = "{" +
                 "  \"to\": \"" + token + "\", " +
@@ -301,6 +313,7 @@ public class JDBCPOST {
                 "    \"iduser_2\":\"" + iduser_2 + "\"," +
                 "    \"nick\":\"" + nick + "\"," +
                 "    \"time\":\"" + time + "\"," +
+                "    \"read\":\"" + read + "\"," +
                 "    \"key\":\"" + key + "\"" +
                 "  }" +
                 "}";

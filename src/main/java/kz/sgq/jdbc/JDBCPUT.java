@@ -87,6 +87,37 @@ public class JDBCPUT {
             return "200 OK";
         return null;
     }
+
+    public String putRead(Request request) {
+        boolean check = false;
+        try {
+            if (request.queryParams("idchats") != null &&
+                    request.queryParams("read") != null) {
+                preparedStatement = connection.prepareStatement(SQLStatement.getChat());
+                preparedStatement.setInt(1, Integer.parseInt(request.queryParams("idchats")));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    preparedStatement = connection.prepareStatement(SQLStatement.putRead());
+                    preparedStatement.setInt(1, Integer.parseInt(request.queryParams("read")));
+                    preparedStatement.setInt(2, Integer.parseInt(request.queryParams("idchats")));
+                    preparedStatement.executeUpdate();
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (check)
+            return "200 OK";
+        return null;
+    }
+
     public String putBio(Request request) {
         boolean check = false;
         try {

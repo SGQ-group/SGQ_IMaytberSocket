@@ -45,6 +45,13 @@ public class Main {
         put("/nick", (request, response) -> new JDBCPUT().putNick(request));
 
         /**
+         * https://example.com/nick ?
+         * & idchats
+         * & read
+         */
+        put("/read", (request, response) -> new JDBCPUT().putRead(request));
+
+        /**
          * https://example.com/avatar ?
          * & iduser
          * & avatar
