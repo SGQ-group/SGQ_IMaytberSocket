@@ -185,8 +185,8 @@ public class JDBCPOST {
                         String idchats = resultSet.getString("idchats");
                         int read = resultSet.getInt("read") + 1;
                         preparedStatement = connection.prepareStatement(SQLStatement.putRead());
-                        preparedStatement.setInt(1, Integer.parseInt(idchats));
-                        preparedStatement.setInt(2, read);
+                        preparedStatement.setInt(1, read);
+                        preparedStatement.setInt(2, Integer.parseInt(idchats));
                         preparedStatement.executeUpdate();
 
                         String time = request.queryParams("time");
@@ -241,8 +241,8 @@ public class JDBCPOST {
                         String time = request.queryParams("time");
                         int read = resultSet.getInt("read") + 1;
                         preparedStatement = connection.prepareStatement(SQLStatement.putRead());
-                        preparedStatement.setInt(1, Integer.parseInt(idchats));
-                        preparedStatement.setInt(2, read);
+                        preparedStatement.setInt(1, read);
+                        preparedStatement.setInt(2, Integer.parseInt(idchats));
                         preparedStatement.executeUpdate();
 
                         preparedStatement = connection.prepareStatement(SQLStatement.createMessage());
