@@ -6,7 +6,7 @@ public class SQLStatement {
     }
 
     public static String putRead() {
-        return "UPDATE chats SET read=? where idchats=?";
+        return "UPDATE chats SET `read`=? where idchats=?";
     }
 
     public static String putToken() {
