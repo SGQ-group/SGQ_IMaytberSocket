@@ -92,13 +92,25 @@ public class JDBCGET {
             preparedStatement.setInt(2, Integer.parseInt(request.queryParams("iduser")));
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<HashMap<String, String>> replyList = new ArrayList<>();
+            List<String> readList = new ArrayList<>();
             while (resultSet.next()) {
                 HashMap<String, String> replyMap = new HashMap<>();
                 replyMap.put("idchat", resultSet.getString("idchats"));
                 replyMap.put("iduser_1", resultSet.getString("iduser_1"));
                 replyMap.put("iduser_2", resultSet.getString("iduser_2"));
                 replyMap.put("key", resultSet.getString("key"));
+                readList.add(resultSet.getString("read"));
                 replyList.add(replyMap);
+            }
+            preparedStatement = connection.prepareStatement(SQLStatement.getChatsId());
+            for (int i = 0; i < replyList.size(); i++) {
+                preparedStatement.setInt(1, Integer.parseInt(request.queryParams(replyList.get(i).get("idchat"))));
+                while (resultSet.next()) {
+                    if (resultSet.getInt("iduser") == Integer.parseInt(request.queryParams("iduser")))
+                        replyList.get(i).put("read", readList.get(i));
+                    else
+                        replyList.get(i).put("read", "0");
+                }
             }
             reply = new Gson().toJson(replyList);
         } catch (Exception e) {

@@ -47,6 +47,9 @@ public class SQLStatement {
     public static String getChat() {
         return "SELECT * FROM chats WHERE idchats=?";
     }
+    public static String getLastMessageIdChats() {
+        return "SELECT * FROM messages WHERE idchats=? ORDER BY idmessages DESC LIMIT 1";
+    }
     public static String getFriend() {
         return "SELECT * FROM friends WHERE idfriends=?";
     }
