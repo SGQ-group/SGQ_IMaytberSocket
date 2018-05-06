@@ -47,6 +47,12 @@ public class SQLStatement {
     public static String getChat() {
         return "SELECT * FROM chats WHERE idchats=?";
     }
+    public static String getFriend() {
+        return "SELECT * FROM friends WHERE idfriends=?";
+    }
+    public static String deleteFriend() {
+        return "DELETE FROM friends WHERE idfriends=?";
+    }
 
     public static String getLoginLoginPassword() {
         return "SELECT * FROM users WHERE users.login=? AND users.password=?";

@@ -1,5 +1,6 @@
 package kz.sgq;
 
+import kz.sgq.jdbc.JDBCDELETE;
 import kz.sgq.jdbc.JDBCGET;
 import kz.sgq.jdbc.JDBCPOST;
 import kz.sgq.jdbc.JDBCPUT;
@@ -45,7 +46,7 @@ public class Main {
         put("/nick", (request, response) -> new JDBCPUT().putNick(request));
 
         /**
-         * https://example.com/nick ?
+         * https://example.com/read ?
          * & idchats
          * & read
          */
@@ -109,6 +110,12 @@ public class Main {
          * & iduser
          */
         get("/message", (request, response) -> new JDBCGET().printMessage(request));
+
+        /**
+         * https://example.com/friend ?
+         * & idfriends
+         */
+        delete("/friend", (request, response) -> new JDBCDELETE().deleteFriend(request));
     }
 
     static int getHerokuAssignedPort() {
