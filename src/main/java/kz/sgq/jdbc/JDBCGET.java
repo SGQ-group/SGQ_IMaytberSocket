@@ -104,7 +104,7 @@ public class JDBCGET {
             }
             preparedStatement = connection.prepareStatement(SQLStatement.getLastMessageIdChats());
             for (int i = 0; i < replyList.size(); i++) {
-                preparedStatement.setInt(1, Integer.parseInt(request.queryParams(replyList.get(i).get("idchat"))));
+                preparedStatement.setInt(1, Integer.parseInt(replyList.get(i).get("idchat")));
                 resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     if (resultSet.getInt("iduser") == Integer.parseInt(request.queryParams("iduser")))
