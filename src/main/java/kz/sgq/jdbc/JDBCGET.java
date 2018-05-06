@@ -102,7 +102,7 @@ public class JDBCGET {
                 readList.add(resultSet.getString("read"));
                 replyList.add(replyMap);
             }
-            preparedStatement = connection.prepareStatement(SQLStatement.getLastMessageUser());
+            preparedStatement = connection.prepareStatement(SQLStatement.getLastMessageIdChats());
             for (int i = 0; i < replyList.size(); i++) {
                 preparedStatement.setInt(1, Integer.parseInt(request.queryParams(replyList.get(i).get("idchat"))));
                 while (resultSet.next()) {
