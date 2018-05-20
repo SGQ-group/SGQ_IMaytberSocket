@@ -116,6 +116,13 @@ public class Main {
          * & idfriends
          */
         delete("/friend", (request, response) -> new JDBCDELETE().deleteFriend(request));
+
+        /**
+         * https://example.com/message ?
+         * & iduser
+         * & idmessage
+         */
+        delete("/message", (request, response) -> new JDBCDELETE().deleteMessage(request));
     }
 
     static int getHerokuAssignedPort() {

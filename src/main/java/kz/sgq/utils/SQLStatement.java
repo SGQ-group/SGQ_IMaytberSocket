@@ -57,12 +57,20 @@ public class SQLStatement {
         return "DELETE FROM friends WHERE idfriends=?";
     }
 
+    public static String deleteMessage() {
+        return "DELETE FROM messages WHERE idmessages=?";
+    }
+
     public static String getLoginLoginPassword() {
         return "SELECT * FROM users WHERE users.login=? AND users.password=?";
     }
 
     public static String getMessagesId() {
         return "SELECT * FROM chats WHERE iduser_1=? OR iduser_2=?";
+    }
+
+    public static String getMessages() {
+        return "SELECT * FROM messages WHERE idmessages=?";
     }
 
     public static String getMessagesChat() {
