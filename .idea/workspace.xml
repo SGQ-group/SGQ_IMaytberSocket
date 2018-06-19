@@ -4,10 +4,117 @@
     <list default="true" id="7d8566ad-caa8-49de-9077-f1e9fbc86008" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kz/sgq/Main.java" afterPath="$PROJECT_DIR$/src/main/java/kz/sgq/Main.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCDELETE.java" afterPath="$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCDELETE.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/sgq/utils/SQLStatement.java" afterPath="$PROJECT_DIR$/src/main/java/kz/sgq/utils/SQLStatement.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kz/sgq/jdbc/JDBCGET.class" afterPath="$PROJECT_DIR$/target/classes/kz/sgq/jdbc/JDBCGET.class" />
-      <change beforePath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/jdbc/JDBCGET.class" afterPath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/jdbc/JDBCGET.class" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/bs_leftnavi.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/style.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/stylish-portfolio.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/css/stylish-portfolio.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/function.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/gulpfile.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/064b913e7c3da856db71e9b82cf06cb8.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/FromsLOGO.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/Klassnyj_zhurnal_GooglePlay_(9188).png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/Ster_logo.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/bg-masthead.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/bg.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/logo-hp.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/s1.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/s1.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/s2..png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/s2.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/s3.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/s3.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen 3.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen 3.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen1.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen1.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen2.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen2.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen4.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen4.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/img/screen5.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/js/bs_leftnavi.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/js/stylish-portfolio.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/js/stylish-portfolio.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/polz.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/sd.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/security.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap-grid.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap-grid.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap-reboot.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap-reboot.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap.css.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/css/bootstrap.min.css.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.bundle.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.bundle.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.bundle.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.bundle.min.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/bootstrap/js/bootstrap.min.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/css/font-awesome.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/css/font-awesome.css.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/css/font-awesome.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/fonts/FontAwesome.otf" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/fonts/fontawesome-webfont.eot" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/fonts/fontawesome-webfont.svg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/fonts/fontawesome-webfont.ttf" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/fonts/fontawesome-webfont.woff" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/fonts/fontawesome-webfont.woff2" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/animated.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/bordered-pulled.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/core.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/fixed-width.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/font-awesome.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/icons.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/larger.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/list.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/mixins.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/path.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/rotated-flipped.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/screen-reader.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/stacked.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/less/variables.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_animated.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_bordered-pulled.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_core.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_fixed-width.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_icons.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_larger.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_list.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_mixins.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_path.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_rotated-flipped.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_screen-reader.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_stacked.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/_variables.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/font-awesome/scss/font-awesome.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery-easing/jquery.easing.compatibility.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery-easing/jquery.easing.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery-easing/jquery.easing.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery/jquery.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery/jquery.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery/jquery.min.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery/jquery.slim.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery/jquery.slim.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/jquery/jquery.slim.min.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/css/simple-line-icons.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/fonts/Simple-Line-Icons.eot" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/fonts/Simple-Line-Icons.svg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/fonts/Simple-Line-Icons.ttf" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/fonts/Simple-Line-Icons.woff" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/fonts/Simple-Line-Icons.woff2" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/less/simple-line-icons.less" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/vendor/simple-line-icons/scss/simple-line-icons.scss" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kz/sgq/Main.class" afterPath="$PROJECT_DIR$/target/classes/kz/sgq/Main.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kz/sgq/jdbc/JDBCDELETE.class" afterPath="$PROJECT_DIR$/target/classes/kz/sgq/jdbc/JDBCDELETE.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kz/sgq/utils/SQLStatement.class" afterPath="$PROJECT_DIR$/target/classes/kz/sgq/utils/SQLStatement.class" />
+      <change beforePath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/Main.class" afterPath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/Main.class" />
+      <change beforePath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/jdbc/JDBCDELETE.class" afterPath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/jdbc/JDBCDELETE.class" />
+      <change beforePath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/utils/SQLStatement.class" afterPath="$PROJECT_DIR$/target/heroku/app/target/classes/kz/sgq/utils/SQLStatement.class" />
       <change beforePath="$PROJECT_DIR$/target/heroku/app/target/imaytber-1.0-jar-with-dependencies.jar" afterPath="$PROJECT_DIR$/target/heroku/app/target/imaytber-1.0-jar-with-dependencies.jar" />
       <change beforePath="$PROJECT_DIR$/target/heroku/app/target/imaytber-1.0.jar" afterPath="$PROJECT_DIR$/target/heroku/app/target/imaytber-1.0.jar" />
       <change beforePath="$PROJECT_DIR$/target/heroku/slug.tgz" afterPath="$PROJECT_DIR$/target/heroku/slug.tgz" />
@@ -25,21 +132,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="JDBCDELETE.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCDELETE.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="74" column="17" lean-forward="true" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JDBCPOST.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="JDBCPOST.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPOST.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-525">
-              <caret line="276" column="50" lean-forward="true" selection-start-line="276" selection-start-column="50" selection-end-line="276" selection-end-column="50" />
+            <state relative-caret-position="534">
+              <caret line="266" column="24" lean-forward="false" selection-start-line="266" selection-start-column="24" selection-end-line="271" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -79,8 +176,8 @@
         <option value="$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPOST.java" />
         <option value="$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCGET.java" />
         <option value="$PROJECT_DIR$/src/main/java/kz/sgq/utils/SQLStatement.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kz/sgq/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCDELETE.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kz/sgq/Main.java" />
       </list>
     </option>
   </component>
@@ -92,8 +189,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1944" />
-    <option name="y" value="23" />
+    <option name="x" value="143" />
+    <option name="y" value="90" />
     <option name="width" value="1647" />
     <option name="height" value="974" />
   </component>
@@ -116,6 +213,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -167,12 +265,18 @@
               <item name="sgq" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="imaytberWebSocket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="imaytberWebSocket" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -240,11 +344,10 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1944" y="23" width="1647" height="974" extended-state="0" />
-    <editor active="true" />
+    <frame x="143" y="90" width="1647" height="974" extended-state="0" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18198875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18699187" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -252,7 +355,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20843373" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20843373" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -277,14 +380,6 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/kz/sgq/Main.java</url>
-          <line>22</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPOST.java</url>
           <line>185</line>
           <properties />
@@ -302,6 +397,14 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPOST.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPUT.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -324,24 +427,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="700">
           <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
-          <folding>
-            <element signature="e#188#189#0" expanded="false" />
-            <element signature="e#254#255#0" expanded="false" />
-            <element signature="e#1155#1156#0" expanded="false" />
-            <element signature="e#1230#1231#0" expanded="false" />
-            <element signature="e#1267#1268#0" expanded="false" />
-            <element signature="e#1327#1328#0" expanded="false" />
-            <element signature="e#1513#1514#0" expanded="false" />
-            <element signature="e#1577#1578#0" expanded="false" />
-            <element signature="e#1619#1620#0" expanded="false" />
-            <element signature="e#1681#1682#0" expanded="false" />
-            <element signature="e#1725#1726#0" expanded="false" />
-            <element signature="e#1789#1790#0" expanded="false" />
-            <element signature="e#1970#1971#0" expanded="false" />
-            <element signature="e#2045#2046#0" expanded="false" />
-            <element signature="e#2087#2088#0" expanded="false" />
-            <element signature="e#2153#2154#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -373,24 +459,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="24" column="56" lean-forward="false" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="56" />
-          <folding>
-            <element signature="e#188#189#0" expanded="false" />
-            <element signature="e#254#255#0" expanded="false" />
-            <element signature="e#1155#1156#0" expanded="false" />
-            <element signature="e#1230#1231#0" expanded="false" />
-            <element signature="e#1267#1268#0" expanded="false" />
-            <element signature="e#1327#1328#0" expanded="false" />
-            <element signature="e#1513#1514#0" expanded="false" />
-            <element signature="e#1577#1578#0" expanded="false" />
-            <element signature="e#1619#1620#0" expanded="false" />
-            <element signature="e#1681#1682#0" expanded="false" />
-            <element signature="e#1725#1726#0" expanded="false" />
-            <element signature="e#1789#1790#0" expanded="false" />
-            <element signature="e#1970#1971#0" expanded="false" />
-            <element signature="e#2045#2046#0" expanded="false" />
-            <element signature="e#2087#2088#0" expanded="false" />
-            <element signature="e#2153#2154#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -661,31 +730,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/utils/SQLStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="72" column="55" lean-forward="false" selection-start-line="72" selection-start-column="45" selection-end-line="72" selection-end-column="55" />
-          <folding>
-            <element signature="e#188#189#0" expanded="false" />
-            <element signature="e#254#255#0" expanded="false" />
-            <element signature="e#1155#1156#0" expanded="false" />
-            <element signature="e#1230#1231#0" expanded="false" />
-            <element signature="e#1267#1268#0" expanded="false" />
-            <element signature="e#1327#1328#0" expanded="false" />
-            <element signature="e#1513#1514#0" expanded="false" />
-            <element signature="e#1577#1578#0" expanded="false" />
-            <element signature="e#1619#1620#0" expanded="false" />
-            <element signature="e#1681#1682#0" expanded="false" />
-            <element signature="e#1725#1726#0" expanded="false" />
-            <element signature="e#1789#1790#0" expanded="false" />
-            <element signature="e#1970#1971#0" expanded="false" />
-            <element signature="e#2045#2046#0" expanded="false" />
-            <element signature="e#2087#2088#0" expanded="false" />
-            <element signature="e#2153#2154#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCGET.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-446">
@@ -694,17 +738,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="121" column="22" lean-forward="true" selection-start-line="121" selection-start-column="22" selection-end-line="121" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPUT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2887">
+        <state relative-caret-position="731">
           <caret line="316" column="19" lean-forward="true" selection-start-line="316" selection-start-column="19" selection-end-line="316" selection-end-column="19" />
           <folding>
             <element signature="method#putToken#0;class#JDBCPUT#0" expanded="false" />
@@ -712,18 +748,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPOST.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/utils/SQLStatement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-525">
-          <caret line="276" column="50" lean-forward="true" selection-start-line="276" selection-start-column="50" selection-end-line="276" selection-end-column="50" />
+        <state relative-caret-position="308">
+          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCDELETE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="74" column="17" lean-forward="true" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
+        <state relative-caret-position="0">
+          <caret line="66" column="47" lean-forward="false" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/sgq/jdbc/JDBCPOST.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="266" column="24" lean-forward="false" selection-start-line="266" selection-start-column="24" selection-end-line="271" selection-end-column="25" />
           <folding />
         </state>
       </provider>
