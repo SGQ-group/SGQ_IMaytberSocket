@@ -80,11 +80,14 @@
     position: fixed;
 }
 
+
+
     </style>
 
 </head>
 
-<body class="fixed-sn black-skin">
+<body onmouseup="noSelect(event);">
+
 
 
     <!--Main Navigation-->
@@ -445,7 +448,15 @@ if (document.layers){
 document.oncontextmenu=new Function("alert(message);return false")
 
       </script>
-   
+  <script type="text/javascript">
+    document.ondragstart = noselect; 
+    // запрет на перетаскивание 
+    document.onselectstart = noselect; 
+    // запрет на выделение элементов страницы 
+    document.oncontextmenu = noselect; 
+    // запрет на выведение контекстного меню 
+    function noselect() {return false;} 
+</script>
    
     </body>
 </html>
