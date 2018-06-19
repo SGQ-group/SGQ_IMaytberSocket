@@ -10,7 +10,7 @@ import static spark.Spark.*;
 public class Main {
     public static void main(String[] args){
         port(getHerokuAssignedPort());
-        staticFiles.location("/public");
+//        staticFiles.location("/public");
         post("/user", (request, response) -> new JDBCPOST().createUser(request));
         post("/friend", (request, response) -> new JDBCPOST().createFriends(request));
         post("/message", (request, response) -> new JDBCPOST().createMS(request));
