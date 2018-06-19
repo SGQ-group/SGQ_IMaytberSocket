@@ -1,1 +1,0 @@
-web: java -jar ./target/imaytber-1.0-jar-with-dependencies.jar
