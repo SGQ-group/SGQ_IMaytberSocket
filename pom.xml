@@ -72,7 +72,6 @@
                     <jdkVersion>1.8</jdkVersion>
                     <appName>imaytber</appName>
                     <processTypes>
-                        <!-- Tell Heroku how to launch your application -->
                         <web>java -jar ./target/imaytber-1.0-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
